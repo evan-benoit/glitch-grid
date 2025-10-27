@@ -9,6 +9,7 @@ import (
 	"os"
 	"strconv"
 	"time"
+    "math/rand"
 
 	"github.com/golang/glog"
 )
@@ -69,6 +70,16 @@ func (s *VaultServer) post(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Invalid or missing POST body"))
 		return
 	}
+
+    // Introduce random failure: 50% of the time, drop the write.
+    rand.Seed(time.Now().UnixNano())
+    if rand.Intn(2) == 0 {
+        glog.Warningf("INTENTIONAL FAULT: Dropping write to vault %d", s.port)
+        w.WriteHeader(http.StatusOK)
+        w.Write([]byte("Write dropped intentionally"))
+        return
+    }
+
 	v := string(body)
 	n, e := strconv.Atoi(v)
 	if n >= 0 && e == nil {
