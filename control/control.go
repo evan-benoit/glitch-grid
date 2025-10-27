@@ -205,6 +205,7 @@ func (s *ControlServer) post(w http.ResponseWriter, r *http.Request) {
 	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		// We did not get a valid body from the client. Tell them so.
+		assert.Unreachable("control: unreadable body", Details{"err": err})
 		glog.Warningf("Could not read body: %v\n", err)
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Invalid or missing POST body"))
@@ -213,6 +214,7 @@ func (s *ControlServer) post(w http.ResponseWriter, r *http.Request) {
 	n, e := strconv.Atoi(string(body))
 	if n < 0 || e != nil {
 		// We got a body, but it is not a valid integer (or not valid for us).
+		assert.Unreachable("control: not a valid integer", Details{"err": err})
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte("Invalid or missing POST body"))
 		return
@@ -222,6 +224,7 @@ func (s *ControlServer) post(w http.ResponseWriter, r *http.Request) {
 	if n < s.minValue {
 		msg := fmt.Sprintf("Client would make value decrease from %d to %d", s.minValue, n)
 		s.lock.RUnlock()
+		assert.Unreachable(msg, Details{"minValue": s.minValue, "requestedValue": n})
 		glog.Warning(msg)
 		w.WriteHeader(http.StatusBadRequest)
 		w.Write([]byte(msg))
