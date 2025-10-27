@@ -79,6 +79,7 @@ services:
       - NUM_STEPS=100
       - MAX_STEP_SIZE=3
       - CHECK_WHEN_MULTIPLE_OF=10
+      - FAILURE_RATE=0
     networks:
       go-demo:
         ipv4_address: 10.0.1.110
