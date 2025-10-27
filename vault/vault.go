@@ -20,6 +20,7 @@ type VaultServer struct {
 	mux   *http.ServeMux
 	port  int
 	value int
+	failureRate int // percent 0-100 of writes that should fail
 }
 
 // Create and return a new Vault server instance.
@@ -33,6 +34,17 @@ func NewVaultServer(port int) *VaultServer {
 	s.port = port
 	s.mux.HandleFunc("/", s.handle)
 	http.DefaultClient.Timeout = time.Second
+
+    // Read the failure rate, default: 50%
+    failureRate := 50
+    if frStr := os.Getenv("FAILURE_RATE"); frStr != "" {
+        if fr, err := strconv.Atoi(frStr); err == nil && fr >= 0 && fr <= 100 {
+            failureRate = fr
+        }
+    }
+	s.failureRate = failureRate
+	glog.Infof("Starting Vault server on port %d with failure rate %d%%", s.port, s.failureRate)
+
 	return s
 }
 
@@ -71,10 +83,10 @@ func (s *VaultServer) post(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-    // Introduce random failure: 50% of the time, drop the write.
+	// Simulate failure based on failure rate
     rand.Seed(time.Now().UnixNano())
-    if rand.Intn(2) == 0 {
-        glog.Warningf("INTENTIONAL FAULT: Dropping write to vault %d", s.port)
+    if rand.Intn(100) < s.failureRate {
+        glog.Warningf("INTENTIONAL FAULT: Dropping write to vault %d (failureRate=%d%%)", s.port, s.failureRate)
         w.WriteHeader(http.StatusOK)
         w.Write([]byte("Write dropped intentionally"))
         return

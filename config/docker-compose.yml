@@ -9,6 +9,7 @@ services:
     container_name: vault1
     environment:
       - ANTITHESIS_SDK_LOCAL_OUTPUT=/logs/antithesis-local.jsonl
+      - FAILURE_RATE=0
     volumes:
       - ./logs:/logs
     ports:
@@ -24,6 +25,7 @@ services:
     container_name: vault2
     environment:
       - ANTITHESIS_SDK_LOCAL_OUTPUT=/logs/antithesis-local.jsonl
+      - FAILURE_RATE=0      
     volumes:
       - ./logs:/logs
     ports:
@@ -39,6 +41,7 @@ services:
     container_name: vault3
     environment:
       - ANTITHESIS_SDK_LOCAL_OUTPUT=/logs/antithesis-local.jsonl
+      - FAILURE_RATE=0
     volumes:
       - ./logs:/logs
     ports:
