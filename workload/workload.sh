@@ -11,6 +11,10 @@ MAX_STEP_SIZE=${MAX_STEP_SIZE:-5}
 # Check the consistency of the system when the counter is a multiple of what number?
 CHECK_WHEN_MULTIPLE_OF=${CHECK_WHEN_MULTIPLE_OF:-5}
 
+# Add a failure rate to how frequently n resets to zero
+FAILURE_RATE=${FAILURE_RATE:-0} # Percentage chance of failure on each write
+echo "INFO: Using FAILURE_RATE=${FAILURE_RATE}%"
+
 CONTROL_SERVER=$1
 if [[ -z "${CONTROL_SERVER}" ]]
 then
@@ -35,6 +39,13 @@ n=0
 for c in $(seq 1 ${NUM_STEPS} )
 do
     n=$(( $n + ($RANDOM % $MAX_STEP_SIZE) + 1 ))
+
+    # see if we're going to randomly reset n to zero to simulate a failure
+    if (( $(( RANDOM % 100 )) < FAILURE_RATE )); then
+        echo "INFO: Simulating failure, resetting n to zero"
+        n=0
+    fi
+
     outfile="/tmp/${n}.out"
     http_code=$(curl -s -o "${outfile}" -w "%{http_code}" -X POST "http://${CONTROL_SERVER}" -d "${n}")
     echo "HttpStatus=${http_code} Message=$(cat "${outfile}" 2> /dev/null)"
