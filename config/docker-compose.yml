@@ -7,6 +7,10 @@ services:
     image: demo-go-vault:${IMAGE_TAG}
     build: ../vault/
     container_name: vault1
+    environment:
+      - ANTITHESIS_SDK_LOCAL_OUTPUT=/logs/antithesis-local.jsonl
+    volumes:
+      - ./logs:/logs
     ports:
       - "8001:8001"
     networks:
@@ -18,6 +22,10 @@ services:
     image: demo-go-vault:${IMAGE_TAG}
     build: ../vault/
     container_name: vault2
+    environment:
+      - ANTITHESIS_SDK_LOCAL_OUTPUT=/logs/antithesis-local.jsonl
+    volumes:
+      - ./logs:/logs
     ports:
       - "8002:8002"
     networks:
@@ -29,6 +37,10 @@ services:
     image: demo-go-vault:${IMAGE_TAG}
     build: ../vault/
     container_name: vault3
+    environment:
+      - ANTITHESIS_SDK_LOCAL_OUTPUT=/logs/antithesis-local.jsonl
+    volumes:
+      - ./logs:/logs
     ports:
       - "8003:8003"
     networks:
@@ -42,6 +54,10 @@ services:
     image: demo-go-control:${IMAGE_TAG}
     build: ../control/
     container_name: control
+    environment:
+      - ANTITHESIS_SDK_LOCAL_OUTPUT=/logs/antithesis-local.jsonl
+    volumes:
+      - ./logs:/logs
     ports:
       - "8000:8000"
     networks:
