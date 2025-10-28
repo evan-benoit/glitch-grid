@@ -8,10 +8,13 @@ RUN apk update
 RUN apk upgrade
 RUN apk add bash curl
 
+# Create my first test directory and switch to it.
+WORKDIR /opt/antithesis/test/v1/quickstart
+
 # Add source code
-ADD workload.sh .
+COPY workload.sh ./parallel_driver_workload.sh
 
 # Define the entrypoint.
 # Make sure to use the array version of this specification, so other command-line
 # arguments and parameters can be specified in the Dockerfile.
-ENTRYPOINT [ "/bin/bash", "./workload.sh" ]
+ENTRYPOINT [ "/bin/bash", "./parallel_driver_workload.sh" ]
