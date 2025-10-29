@@ -179,3 +179,4 @@ cython_debug/
 # Random but common clutter
 .DS_Store
 config/logs/antithesis-local.jsonl
+config/output.txt
