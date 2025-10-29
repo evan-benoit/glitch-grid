@@ -1,343 +1,242 @@
 ➜  docker-compose up --build
 WARN[0000] /Users/evanbenoit/Documents/git/personal/glitch-grid/config/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
 [+] Building 1.0s (51/51) FINISHED
- => [internal] load local bake definitions                                      0.0s
- => => reading from stdin 2.56kB                                                0.0s
- => [workload internal] load build definition from Dockerfile                   0.0s
- => => transferring dockerfile: 821B                                            0.0s
- => [vault3 internal] load build definition from Dockerfile                     0.0s
- => => transferring dockerfile: 1.29kB                                          0.0s
- => [control internal] load build definition from Dockerfile                    0.0s
- => => transferring dockerfile: 1.35kB                                          0.0s
- => [workload internal] load metadata for docker.io/library/alpine:latest       0.4s
- => [control internal] load metadata for docker.io/library/debian:bookworm-sli  0.4s
- => [vault3 internal] load metadata for docker.io/library/golang:1.20-bookworm  0.4s
- => [workload internal] load .dockerignore                                      0.0s
- => => transferring context: 2B                                                 0.0s
- => [vault1 internal] load .dockerignore                                        0.0s
- => => transferring context: 2B                                                 0.0s
- => [control internal] load .dockerignore                                       0.0s
- => => transferring context: 2B                                                 0.0s
- => [workload 1/8] FROM docker.io/library/alpine:latest@sha256:4b7ce07002c69e8  0.0s
- => => resolve docker.io/library/alpine:latest@sha256:4b7ce07002c69e8f3d704a9c  0.0s
- => [workload internal] load build context                                      0.0s
- => => transferring context: 67B                                                0.0s
- => [vault1 stage-1 1/4] FROM docker.io/library/debian:bookworm-slim@sha256:78  0.0s
- => => resolve docker.io/library/debian:bookworm-slim@sha256:78d2f66e0fec9e5a3  0.0s
- => [vault2 internal] load build context                                        0.0s
- => => transferring context: 81B                                                0.0s
- => [vault1 builder 1/7] FROM docker.io/library/golang:1.20-bookworm@sha256:9f  0.0s
- => => resolve docker.io/library/golang:1.20-bookworm@sha256:9fa9101141c01e944  0.0s
- => [control internal] load build context                                       0.0s
- => => transferring context: 84B                                                0.0s
- => CACHED [control builder 2/7] RUN mkdir -p /go/src/antithesis/control        0.0s
- => CACHED [control builder 3/7] COPY go.sum go.mod *.go /go/src/antithesis/co  0.0s
- => CACHED [control builder 4/7] RUN cd /go/src/antithesis/control && go insta  0.0s
- => CACHED [control builder 5/7] RUN mkdir -p /go/src/antithesis/control-instr  0.0s
- => CACHED [control builder 6/7] RUN /go/bin/antithesis-go-instrumentor /go/sr  0.0s
- => CACHED [control builder 7/7] RUN cd /go/src/antithesis/control-instrumente  0.0s
- => CACHED [control stage-1 2/4] COPY --from=builder /go/src/antithesis/contro  0.0s
- => CACHED [control stage-1 3/4] RUN mkdir -p /symbols                          0.0s
- => CACHED [control stage-1 4/4] COPY --from=builder /go/src/antithesis/contro  0.0s
- => CACHED [workload 2/8] RUN apk update                                        0.0s
- => CACHED [workload 3/8] RUN apk upgrade                                       0.0s
- => CACHED [workload 4/8] RUN apk add bash curl                                 0.0s
- => CACHED [workload 5/8] WORKDIR /opt/antithesis/test/v1/quickstart            0.0s
- => CACHED [workload 6/8] COPY workload.sh ./parallel_driver_workload.sh        0.0s
- => CACHED [workload 7/8] COPY healthcheck.sh ./parallel_driver_healthcheck.sh  0.0s
- => CACHED [workload 8/8] RUN chmod +x *.sh                                     0.0s
- => CACHED [vault2 builder 2/7] RUN mkdir -p /go/src/antithesis/vault           0.0s
- => CACHED [vault2 builder 3/7] COPY go.sum go.mod *.go /go/src/antithesis/vau  0.0s
- => CACHED [vault2 builder 4/7] RUN cd /go/src/antithesis/vault && go install   0.0s
- => CACHED [vault2 builder 5/7] RUN mkdir -p /go/src/antithesis/vault-instrume  0.0s
- => CACHED [vault2 builder 6/7] RUN /go/bin/antithesis-go-instrumentor /go/src  0.0s
- => CACHED [vault2 builder 7/7] RUN cd /go/src/antithesis/vault-instrumented/c  0.0s
- => CACHED [vault2 stage-1 2/4] COPY --from=builder /go/src/antithesis/vault-i  0.0s
- => CACHED [vault2 stage-1 3/4] RUN mkdir -p /symbols                           0.0s
- => CACHED [vault2 stage-1 4/4] COPY --from=builder /go/src/antithesis/vault-i  0.0s
- => [workload] exporting to image                                               0.1s
- => => exporting layers                                                         0.0s
- => => exporting manifest sha256:9ee9351f69dba89de30663f1a9b360806865cbbe1a5e8  0.0s
- => => exporting config sha256:0841d481af25c52001efca53dc72b8c63279959de28317b  0.0s
- => => exporting attestation manifest sha256:3a3a301526978e1196793c89caaaa989e  0.0s
- => => exporting manifest list sha256:bb4aebf2c5725f2a61247455bfb2551f7d7cb8a4  0.0s
- => => naming to docker.io/library/demo-workload:antithesis                     0.0s
- => => unpacking to docker.io/library/demo-workload:antithesis                  0.0s
- => [control] exporting to image                                                0.1s
- => => exporting layers                                                         0.0s
- => => exporting manifest sha256:b91370fc1b8db1d45e66a07643b433387efdd0f4a0d80  0.0s
- => => exporting config sha256:c01241fd2c23a62b78e7779f9517b161cdfc7970dadcdcd  0.0s
- => => exporting attestation manifest sha256:a985ee0034d1c75ceedb4ccfa190927a4  0.0s
- => => exporting manifest list sha256:aa2aa3c7ccf9fa6857522ac34d1327258a3227fe  0.0s
- => => naming to docker.io/library/demo-go-control:antithesis                   0.0s
- => => unpacking to docker.io/library/demo-go-control:antithesis                0.0s
- => [vault2] exporting to image                                                 0.1s
- => => exporting layers                                                         0.0s
- => => exporting manifest sha256:e00f1e56e5f3426b7f7963985cc7ef808dfcb29be1546  0.0s
- => => exporting config sha256:422047ba1dec69bb044a26aa6be45aaca067592957343ab  0.0s
- => => exporting attestation manifest sha256:0c002711feb1ac989a7050fd17a392858  0.0s
- => => exporting manifest list sha256:fd0bba4c9b3bc107d5b4c9a93734acd2bfd5dd5e  0.0s
- => => naming to docker.io/library/demo-go-vault:antithesis                     0.0s
- => => unpacking to docker.io/library/demo-go-vault:antithesis                  0.0s
- => [vault1] exporting to image                                                 0.1s
- => => exporting layers                                                         0.0s
- => => exporting manifest sha256:85d9bc3fdc977704d39789a6699bf4f9a1e36bcb05c33  0.0s
- => => exporting config sha256:e42f156c61d6b782fd6e0cad9c0176175fa982adfa94e29  0.0s
- => => exporting attestation manifest sha256:3fb9352d0a3edef05876c7e322d65c57a  0.0s
- => => exporting manifest list sha256:6f32e695190912bd4fea5fcaa43df4edf40d654a  0.0s
- => => naming to docker.io/library/demo-go-vault:antithesis                     0.0s
- => => unpacking to docker.io/library/demo-go-vault:antithesis                  0.0s
- => [vault3] exporting to image                                                 0.1s
- => => exporting layers                                                         0.0s
- => => exporting manifest sha256:83c1ef0a91e981ce9e4336fc9567513b7d23417d1ad39  0.0s
- => => exporting config sha256:cebc1d8d88d3e1f7fd5370c318584f88172f897b36812e3  0.0s
- => => exporting attestation manifest sha256:f112845055241d24c445649ae7c8205c9  0.0s
- => => exporting manifest list sha256:6e4528d7756a310e8e8fc82458e78deab78aa766  0.0s
- => => naming to docker.io/library/demo-go-vault:antithesis                     0.0s
- => => unpacking to docker.io/library/demo-go-vault:antithesis                  0.0s
- => [vault3] resolving provenance for metadata file                             0.1s
- => [vault2] resolving provenance for metadata file                             0.0s
- => [vault1] resolving provenance for metadata file                             0.0s
- => [workload] resolving provenance for metadata file                           0.0s
- => [control] resolving provenance for metadata file                            0.0s
+ => [internal] load local bake definitions                                                                                                                            0.0s
+ => => reading from stdin 2.56kB                                                                                                                                      0.0s
+ => [vault2 internal] load build definition from Dockerfile                                                                                                           0.0s
+ => => transferring dockerfile: 1.29kB                                                                                                                                0.0s
+ => [workload internal] load build definition from Dockerfile                                                                                                         0.0s
+ => => transferring dockerfile: 815B                                                                                                                                  0.0s
+ => [control internal] load build definition from Dockerfile                                                                                                          0.0s
+ => => transferring dockerfile: 1.35kB                                                                                                                                0.0s
+ => [workload internal] load metadata for docker.io/library/alpine:latest                                                                                             0.3s
+ => [vault3 internal] load metadata for docker.io/library/debian:bookworm-slim                                                                                        0.3s
+ => [vault3 internal] load metadata for docker.io/library/golang:1.20-bookworm                                                                                        0.3s
+ => [workload internal] load .dockerignore                                                                                                                            0.0s
+ => => transferring context: 2B                                                                                                                                       0.0s
+ => [workload 1/8] FROM docker.io/library/alpine:latest@sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412                                       0.0s
+ => => resolve docker.io/library/alpine:latest@sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412                                                0.0s
+ => [workload internal] load build context                                                                                                                            0.0s
+ => => transferring context: 67B                                                                                                                                      0.0s
+ => [vault2 internal] load .dockerignore                                                                                                                              0.0s
+ => => transferring context: 2B                                                                                                                                       0.0s
+ => [control internal] load .dockerignore                                                                                                                             0.0s
+ => => transferring context: 2B                                                                                                                                       0.0s
+ => [control builder 1/7] FROM docker.io/library/golang:1.20-bookworm@sha256:9fa9101141c01e9440216d32eb2b380b3c3079bea07aeab3546020cc91b3662c                         0.0s
+ => => resolve docker.io/library/golang:1.20-bookworm@sha256:9fa9101141c01e9440216d32eb2b380b3c3079bea07aeab3546020cc91b3662c                                         0.0s
+ => [control stage-1 1/4] FROM docker.io/library/debian:bookworm-slim@sha256:78d2f66e0fec9e5a39fb2c72ea5e052b548df75602b5215ed01a17171529f706                         0.0s
+ => => resolve docker.io/library/debian:bookworm-slim@sha256:78d2f66e0fec9e5a39fb2c72ea5e052b548df75602b5215ed01a17171529f706                                         0.0s
+ => [control internal] load build context                                                                                                                             0.0s
+ => => transferring context: 84B                                                                                                                                      0.0s
+ => [vault3 internal] load build context                                                                                                                              0.0s
+ => => transferring context: 81B                                                                                                                                      0.0s
+ => CACHED [workload 2/8] RUN apk update                                                                                                                              0.0s
+ => CACHED [workload 3/8] RUN apk upgrade                                                                                                                             0.0s
+ => CACHED [workload 4/8] RUN apk add bash curl                                                                                                                       0.0s
+ => CACHED [workload 5/8] WORKDIR /opt/antithesis/test/v1/quickstart                                                                                                  0.0s
+ => CACHED [workload 6/8] COPY workload.sh ./singleton_driver_workload.sh                                                                                             0.0s
+ => CACHED [workload 7/8] COPY healthcheck.sh ./anytime_healthcheck.sh                                                                                                0.0s
+ => CACHED [workload 8/8] RUN chmod +x *.sh                                                                                                                           0.0s
+ => [workload] exporting to image                                                                                                                                     0.1s
+ => => exporting layers                                                                                                                                               0.0s
+ => => exporting manifest sha256:7fc92a9fd2cf3fa5ab1fbc8c40b124c14d6b6217d6baa16cc43b31a90cd2986b                                                                     0.0s
+ => => exporting config sha256:f65e0286fca3c4a329e1db565d7d2f20db47de11d7a9831542ca934a6365b7a8                                                                       0.0s
+ => => exporting attestation manifest sha256:3dad8c5f5c665d62f4a90e36a21bb0cb7323db14afcbd5e2591623df254b0b89                                                         0.0s
+ => => exporting manifest list sha256:5523fa4bbb854630ed59be20f49aec7e3721b6883f6831867fba48652e1f0153                                                                0.0s
+ => => naming to docker.io/library/demo-workload:antithesis                                                                                                           0.0s
+ => => unpacking to docker.io/library/demo-workload:antithesis                                                                                                        0.0s
+ => CACHED [control builder 2/7] RUN mkdir -p /go/src/antithesis/control                                                                                              0.0s
+ => CACHED [control builder 3/7] COPY go.sum go.mod *.go /go/src/antithesis/control/                                                                                  0.0s
+ => CACHED [control builder 4/7] RUN cd /go/src/antithesis/control && go install github.com/antithesishq/antithesis-sdk-go/tools/antithesis-go-instrumentor@v0.3.6 &  0.0s
+ => CACHED [control builder 5/7] RUN mkdir -p /go/src/antithesis/control-instrumented                                                                                 0.0s
+ => CACHED [control builder 6/7] RUN /go/bin/antithesis-go-instrumentor /go/src/antithesis/control /go/src/antithesis/control-instrumented                            0.0s
+ => CACHED [control builder 7/7] RUN cd /go/src/antithesis/control-instrumented/customer && cat *_antithesis_catalog.go && go build -o control *.go                   0.0s
+ => CACHED [control stage-1 2/4] COPY --from=builder /go/src/antithesis/control-instrumented/customer/control /bin/                                                   0.0s
+ => CACHED [control stage-1 3/4] RUN mkdir -p /symbols                                                                                                                0.0s
+ => CACHED [control stage-1 4/4] COPY --from=builder /go/src/antithesis/control-instrumented/symbols /symbols/                                                        0.0s
+ => [control] exporting to image                                                                                                                                      0.1s
+ => => exporting layers                                                                                                                                               0.0s
+ => => exporting manifest sha256:b91370fc1b8db1d45e66a07643b433387efdd0f4a0d804e744d4175811840673                                                                     0.0s
+ => => exporting config sha256:c01241fd2c23a62b78e7779f9517b161cdfc7970dadcdcdf71283eb92838b25e                                                                       0.0s
+ => => exporting attestation manifest sha256:aa1d5bad20e6c5e83a3f95e10185bb9a569434d90a9564d9949839346b3097ae                                                         0.0s
+ => => exporting manifest list sha256:8f53ddaf4ed3128c953fa1dc46cd7a65112683db4d7719492f14000aa09a4b87                                                                0.0s
+ => => naming to docker.io/library/demo-go-control:antithesis                                                                                                         0.0s
+ => => unpacking to docker.io/library/demo-go-control:antithesis                                                                                                      0.0s
+ => CACHED [vault3 builder 2/7] RUN mkdir -p /go/src/antithesis/vault                                                                                                 0.0s
+ => CACHED [vault3 builder 3/7] COPY go.sum go.mod *.go /go/src/antithesis/vault/                                                                                     0.0s
+ => CACHED [vault3 builder 4/7] RUN cd /go/src/antithesis/vault && go install github.com/antithesishq/antithesis-sdk-go/tools/antithesis-go-instrumentor@v0.3.6 && g  0.0s
+ => CACHED [vault3 builder 5/7] RUN mkdir -p /go/src/antithesis/vault-instrumented                                                                                    0.0s
+ => CACHED [vault3 builder 6/7] RUN /go/bin/antithesis-go-instrumentor /go/src/antithesis/vault /go/src/antithesis/vault-instrumented                                 0.0s
+ => CACHED [vault3 builder 7/7] RUN cd /go/src/antithesis/vault-instrumented/customer && go build -o vault *.go                                                       0.0s
+ => CACHED [vault3 stage-1 2/4] COPY --from=builder /go/src/antithesis/vault-instrumented/customer/vault /bin/                                                        0.0s
+ => CACHED [vault3 stage-1 3/4] RUN mkdir -p /symbols                                                                                                                 0.0s
+ => CACHED [vault3 stage-1 4/4] COPY --from=builder /go/src/antithesis/vault-instrumented/symbols /symbols/                                                           0.0s
+ => [vault2] exporting to image                                                                                                                                       0.1s
+ => => exporting layers                                                                                                                                               0.0s
+ => => exporting manifest sha256:e00f1e56e5f3426b7f7963985cc7ef808dfcb29be15469b71945844cb00f7568                                                                     0.0s
+ => => exporting config sha256:422047ba1dec69bb044a26aa6be45aaca067592957343ab6290d61c08a84bfb6                                                                       0.0s
+ => => exporting attestation manifest sha256:5390a9e737e755c4ea09378784dc99be7db9b69409c8fd52e259d23f2895c9c3                                                         0.0s
+ => => exporting manifest list sha256:bdd381eac25696b1632696b9762a46ffcfaa5a72e81b84a0ef385135e7e2df6a                                                                0.0s
+ => => naming to docker.io/library/demo-go-vault:antithesis                                                                                                           0.0s
+ => => unpacking to docker.io/library/demo-go-vault:antithesis                                                                                                        0.0s
+ => [vault1] exporting to image                                                                                                                                       0.1s
+ => => exporting layers                                                                                                                                               0.0s
+ => => exporting manifest sha256:85d9bc3fdc977704d39789a6699bf4f9a1e36bcb05c3383ce6cb9ea4003431f2                                                                     0.0s
+ => => exporting config sha256:e42f156c61d6b782fd6e0cad9c0176175fa982adfa94e29f6966f79a1d73c59f                                                                       0.0s
+ => => exporting attestation manifest sha256:62b1fefe330a05ee1e168897cf4290a179b44c07f158ffcfaed21d770ba15cdd                                                         0.0s
+ => => exporting manifest list sha256:671fabd36a79daa5f3e9bb95875f16d9914215a78dea1a347384c6ba147c8c5a                                                                0.0s
+ => => naming to docker.io/library/demo-go-vault:antithesis                                                                                                           0.0s
+ => => unpacking to docker.io/library/demo-go-vault:antithesis                                                                                                        0.0s
+ => [vault3] exporting to image                                                                                                                                       0.1s
+ => => exporting layers                                                                                                                                               0.0s
+ => => exporting manifest sha256:83c1ef0a91e981ce9e4336fc9567513b7d23417d1ad393b1b88b13ce248e6a50                                                                     0.0s
+ => => exporting config sha256:cebc1d8d88d3e1f7fd5370c318584f88172f897b36812e3faad4d6eb680b6f64                                                                       0.0s
+ => => exporting attestation manifest sha256:d06b95b78c0d1f5621782096eaeb0c7ba8728efc3ac31c2485177d34a64c5e69                                                         0.0s
+ => => exporting manifest list sha256:42dc1043a7aaa93db228a5d6c6e82fc4f4be2ae6d5591237e1607a061671bf9e                                                                0.0s
+ => => naming to docker.io/library/demo-go-vault:antithesis                                                                                                           0.0s
+ => => unpacking to docker.io/library/demo-go-vault:antithesis                                                                                                        0.0s
+ => [workload] resolving provenance for metadata file                                                                                                                 0.0s
+ => [vault2] resolving provenance for metadata file                                                                                                                   0.0s
+ => [vault1] resolving provenance for metadata file                                                                                                                   0.0s
+ => [control] resolving provenance for metadata file                                                                                                                  0.0s
+ => [vault3] resolving provenance for metadata file                                                                                                                   0.0s
 [+] Running 8/8
- ✔ demo-go-control:antithesis  Built                                            0.0s
- ✔ demo-go-vault:antithesis    Built                                            0.0s
- ✔ demo-workload:antithesis    Built                                            0.0s
- ✔ Container vault3            Recreated                                        0.1s
- ✔ Container vault1            Recreated                                        0.1s
- ✔ Container workload          Recreated                                        0.1s
- ✔ Container control           Recreated                                        0.2s
- ✔ Container vault2            Recreated                                        0.1s
+ ✔ demo-go-vault:antithesis    Built                                                                                                                                  0.0s
+ ✔ demo-workload:antithesis    Built                                                                                                                                  0.0s
+ ✔ demo-go-control:antithesis  Built                                                                                                                                  0.0s
+ ✔ Container vault3            Recreated                                                                                                                              0.2s
+ ✔ Container workload          Recreated                                                                                                                              0.1s
+ ✔ Container vault2            Recreated                                                                                                                              0.1s
+ ✔ Container control           Recreated                                                                                                                              0.2s
+ ✔ Container vault1            Recreated                                                                                                                              0.2s
 Attaching to control, vault1, vault2, vault3, workload
-vault3  | I1028 01:23:10.360326       1 vault.go:46] Starting Vault server on port 8003 with failure rate 50%
-control  | Control Server booting...
-control  | I1028 01:23:10.378038       1 control.go:45] Defined 3 vaults
-vault2   | I1028 01:23:10.387543       1 vault.go:46] Starting Vault server on port 8002 with failure rate 0%
-vault1   | I1028 01:23:10.396307       1 vault.go:46] Starting Vault server on port 8001 with failure rate 0%
 workload  | INFO: Using FAILURE_RATE=10%
+vault3    | I1029 00:26:30.371460       1 vault.go:46] Starting Vault server on port 8003 with failure rate 0%
+vault1    | I1029 00:26:30.371599       1 vault.go:46] Starting Vault server on port 8001 with failure rate 0%
+control   | Control Server booting...
+control   | I1029 00:26:30.374631       1 control.go:45] Defined 3 vaults
+vault2    | I1029 00:26:30.375860       1 vault.go:46] Starting Vault server on port 8002 with failure rate 0%
 workload  | Waiting 15 seconds for the storage system to become available ... done.
 workload  | === START TEST ===
 
 
-vault3    | W1028 01:23:25.415816       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
-vault1    | I1028 01:23:25.415834       1 vault.go:103] Set Vault :8001 Counter 2
-vault2    | I1028 01:23:25.415869       1 vault.go:103] Set Vault :8002 Counter 2
+vault3    | I1029 00:26:45.407448       1 vault.go:103] Set Vault :8003 Counter 1
+vault1    | I1029 00:26:45.407464       1 vault.go:103] Set Vault :8001 Counter 1
+
+
+vault2    | I1029 00:26:45.407483       1 vault.go:103] Set Vault :8002 Counter 1
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault3    | W1028 01:23:25.427655       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
+vault3    | I1029 00:26:45.415004       1 vault.go:103] Set Vault :8003 Counter 4
 
 
-vault1    | I1028 01:23:25.427758       1 vault.go:103] Set Vault :8001 Counter 5
-vault2    | I1028 01:23:25.427653       1 vault.go:103] Set Vault :8002 Counter 5
+vault1    | I1029 00:26:45.415028       1 vault.go:103] Set Vault :8001 Counter 4
+
+
+vault2    | I1029 00:26:45.415127       1 vault.go:103] Set Vault :8002 Counter 4
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault2    | I1028 01:23:25.434671       1 vault.go:103] Set Vault :8002 Counter 8
-
-vault3    | W1028 01:23:25.434650       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
+vault3    | I1029 00:26:45.420277       1 vault.go:103] Set Vault :8003 Counter 6
 
 
-vault1    | I1028 01:23:25.434639       1 vault.go:103] Set Vault :8001 Counter 8
+vault2    | I1029 00:26:45.420448       1 vault.go:103] Set Vault :8002 Counter 6
+vault1    | I1029 00:26:45.420319       1 vault.go:103] Set Vault :8001 Counter 6
+
+
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault1    | I1028 01:23:25.441228       1 vault.go:103] Set Vault :8001 Counter 10
+vault1    | I1029 00:26:45.425093       1 vault.go:103] Set Vault :8001 Counter 7
 
 
-vault3    | I1028 01:23:25.441064       1 vault.go:103] Set Vault :8003 Counter 10
-vault2    | I1028 01:23:25.441073       1 vault.go:103] Set Vault :8002 Counter 10
+vault3    | I1029 00:26:45.425107       1 vault.go:103] Set Vault :8003 Counter 7
+vault2    | I1029 00:26:45.425060       1 vault.go:103] Set Vault :8002 Counter 7
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-control   | I1028 01:23:25.447467       1 control.go:122] Counts data: map[10:3]
+
+
+vault2    | I1029 00:26:45.429822       1 vault.go:103] Set Vault :8002 Counter 9
+
+
+vault1    | I1029 00:26:45.429891       1 vault.go:103] Set Vault :8001 Counter 9
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault3    | I1029 00:26:45.433915       1 vault.go:103] Set Vault :8003 Counter 10
+vault1    | I1029 00:26:45.433869       1 vault.go:103] Set Vault :8001 Counter 10
+vault2    | I1029 00:26:45.434539       1 vault.go:103] Set Vault :8002 Counter 10
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+control   | I1029 00:26:45.439152       1 control.go:122] Counts data: map[10:3]
 workload  | HttpStatus=200 Expected=10 Actual=10
-vault2    | I1028 01:23:26.461324       1 vault.go:103] Set Vault :8002 Counter 12
-vault1    | I1028 01:23:26.461436       1 vault.go:103] Set Vault :8001 Counter 12
-
-
+vault3    | I1029 00:26:46.452950       1 vault.go:103] Set Vault :8003 Counter 11
+vault1    | I1029 00:26:46.452932       1 vault.go:103] Set Vault :8001 Counter 11
+vault2    | I1029 00:26:46.452964       1 vault.go:103] Set Vault :8002 Counter 11
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault3    | I1028 01:23:26.461438       1 vault.go:103] Set Vault :8003 Counter 12
+vault3    | I1029 00:26:46.461434       1 vault.go:103] Set Vault :8003 Counter 12
 
 
-vault1    | I1028 01:23:26.468448       1 vault.go:103] Set Vault :8001 Counter 13
-vault2    | I1028 01:23:26.468337       1 vault.go:103] Set Vault :8002 Counter 13
-vault3    | W1028 01:23:26.468200       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
-
-
-
-
+vault1    | I1029 00:26:46.461454       1 vault.go:103] Set Vault :8001 Counter 12
+vault2    | I1029 00:26:46.461553       1 vault.go:103] Set Vault :8002 Counter 12
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:26.476084       1 control.go:228] Client would make value decrease from 13 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 13 to 0
-control   | I1028 01:23:26.482402       1 control.go:122] Counts data: map[12:1 13:2]
-workload  | HttpStatus=200 Expected=0 Actual=13
-workload  | ERROR: Storage vaults returned unexpected value!
-workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:27.492671       1 control.go:228] Client would make value decrease from 13 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 13 to 0
-control   | I1028 01:23:27.497685       1 control.go:122] Counts data: map[12:1 13:2]
-workload  | HttpStatus=200 Expected=0 Actual=13
-workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:28.510395       1 control.go:228] Client would make value decrease from 13 to 3
-workload  | HttpStatus=400 Message=Client would make value decrease from 13 to 3
-control   | W1028 01:23:28.518448       1 control.go:228] Client would make value decrease from 13 to 5
-workload  | HttpStatus=400 Message=Client would make value decrease from 13 to 5
-workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:28.525511       1 control.go:228] Client would make value decrease from 13 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 13 to 0
-control   | I1028 01:23:28.531612       1 control.go:122] Counts data: map[12:1 13:2]
-workload  | HttpStatus=200 Expected=0 Actual=13
-workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:29.542906       1 control.go:228] Client would make value decrease from 13 to 3
-workload  | HttpStatus=400 Message=Client would make value decrease from 13 to 3
-control   | W1028 01:23:29.547309       1 control.go:228] Client would make value decrease from 13 to 5
-workload  | HttpStatus=400 Message=Client would make value decrease from 13 to 5
-control   | W1028 01:23:29.552414       1 control.go:228] Client would make value decrease from 13 to 8
-workload  | HttpStatus=400 Message=Client would make value decrease from 13 to 8
-control   | W1028 01:23:29.556576       1 control.go:228] Client would make value decrease from 13 to 11
-workload  | HttpStatus=400 Message=Client would make value decrease from 13 to 11
-vault1    | I1028 01:23:29.560638       1 vault.go:103] Set Vault :8001 Counter 13
-vault2    | I1028 01:23:29.560644       1 vault.go:103] Set Vault :8002 Counter 13
+vault1    | I1029 00:26:46.469582       1 vault.go:103] Set Vault :8001 Counter 13
 
 
-
-
+vault2    | I1029 00:26:46.469560       1 vault.go:103] Set Vault :8002 Counter 13
+vault3    | I1029 00:26:46.469548       1 vault.go:103] Set Vault :8003 Counter 13
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault3    | W1028 01:23:29.564897       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
+vault3    | I1029 00:26:46.476039       1 vault.go:103] Set Vault :8003 Counter 14
 
 
-vault2    | I1028 01:23:29.565012       1 vault.go:103] Set Vault :8002 Counter 15
-vault1    | I1028 01:23:29.564980       1 vault.go:103] Set Vault :8001 Counter 15
+vault2    | I1029 00:26:46.476113       1 vault.go:103] Set Vault :8002 Counter 14
+vault1    | I1029 00:26:46.476013       1 vault.go:103] Set Vault :8001 Counter 14
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:26:46.481808       1 vault.go:103] Set Vault :8003 Counter 16
+
+
+vault1    | I1029 00:26:46.481793       1 vault.go:103] Set Vault :8001 Counter 16
+vault2    | I1029 00:26:46.481823       1 vault.go:103] Set Vault :8002 Counter 16
+
 
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
 
 
-vault2    | I1028 01:23:29.568758       1 vault.go:103] Set Vault :8002 Counter 17
-vault3    | I1028 01:23:29.568761       1 vault.go:103] Set Vault :8003 Counter 17
-
-
-vault1    | I1028 01:23:29.568746       1 vault.go:103] Set Vault :8001 Counter 17
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-
-
-vault1    | I1028 01:23:29.572632       1 vault.go:103] Set Vault :8001 Counter 19
-vault2    | I1028 01:23:29.572676       1 vault.go:103] Set Vault :8002 Counter 19
+vault2    | I1029 00:26:46.487214       1 vault.go:103] Set Vault :8002 Counter 17
+vault3    | I1029 00:26:46.487209       1 vault.go:103] Set Vault :8003 Counter 17
+vault1    | I1029 00:26:46.487836       1 vault.go:103] Set Vault :8001 Counter 17
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
 workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:29.576415       1 control.go:228] Client would make value decrease from 19 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 0
-control   | I1028 01:23:29.580301       1 control.go:122] Counts data: map[19:3]
-workload  | HttpStatus=200 Expected=0 Actual=19
+control   | W1029 00:26:46.491643       1 control.go:228] Client would make value decrease from 17 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 17 to 0
+control   | I1029 00:26:46.495478       1 control.go:122] Counts data: map[17:3]
+workload  | HttpStatus=200 Expected=0 Actual=17
 workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:30.587477       1 control.go:228] Client would make value decrease from 19 to 1
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 1
-control   | W1028 01:23:30.593454       1 control.go:228] Client would make value decrease from 19 to 3
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 3
-control   | W1028 01:23:30.598596       1 control.go:228] Client would make value decrease from 19 to 4
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 4
-workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:30.603280       1 control.go:228] Client would make value decrease from 19 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 0
-control   | I1028 01:23:30.607465       1 control.go:122] Counts data: map[19:3]
-workload  | HttpStatus=200 Expected=0 Actual=19
-workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:31.620949       1 control.go:228] Client would make value decrease from 19 to 2
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 2
-control   | W1028 01:23:31.628878       1 control.go:228] Client would make value decrease from 19 to 5
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 5
-control   | W1028 01:23:31.635400       1 control.go:228] Client would make value decrease from 19 to 6
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 6
-control   | W1028 01:23:31.640809       1 control.go:228] Client would make value decrease from 19 to 7
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 7
-workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:31.646117       1 control.go:228] Client would make value decrease from 19 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 0
-control   | I1028 01:23:31.651814       1 control.go:122] Counts data: map[19:3]
-workload  | HttpStatus=200 Expected=0 Actual=19
-workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:32.667002       1 control.go:228] Client would make value decrease from 19 to 3
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 3
-control   | W1028 01:23:32.674751       1 control.go:228] Client would make value decrease from 19 to 5
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 5
-control   | W1028 01:23:32.681299       1 control.go:228] Client would make value decrease from 19 to 7
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 7
-control   | W1028 01:23:32.687019       1 control.go:228] Client would make value decrease from 19 to 9
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 9
-control   | W1028 01:23:32.692733       1 control.go:228] Client would make value decrease from 19 to 11
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 11
-workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:32.698034       1 control.go:228] Client would make value decrease from 19 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 0
-control   | I1028 01:23:32.703816       1 control.go:122] Counts data: map[19:3]
-workload  | HttpStatus=200 Expected=0 Actual=19
-workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:33.717792       1 control.go:228] Client would make value decrease from 19 to 1
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 1
-workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:33.725634       1 control.go:228] Client would make value decrease from 19 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 0
-control   | I1028 01:23:33.732851       1 control.go:122] Counts data: map[19:3]
-workload  | HttpStatus=200 Expected=0 Actual=19
-workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:34.746609       1 control.go:228] Client would make value decrease from 19 to 3
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 3
-control   | W1028 01:23:34.754770       1 control.go:228] Client would make value decrease from 19 to 4
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 4
-workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:34.760000       1 control.go:228] Client would make value decrease from 19 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 0
-control   | I1028 01:23:34.764251       1 control.go:122] Counts data: map[19:3]
-workload  | HttpStatus=200 Expected=0 Actual=19
-workload  | ERROR: Storage vaults returned unexpected value!
-workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:35.783574       1 control.go:228] Client would make value decrease from 19 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 0
-control   | I1028 01:23:35.789377       1 control.go:122] Counts data: map[19:3]
-workload  | HttpStatus=200 Expected=0 Actual=19
-workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:36.804048       1 control.go:228] Client would make value decrease from 19 to 2
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 2
-control   | W1028 01:23:36.811728       1 control.go:228] Client would make value decrease from 19 to 4
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 4
-control   | W1028 01:23:36.816377       1 control.go:228] Client would make value decrease from 19 to 6
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 6
-control   | W1028 01:23:36.819969       1 control.go:228] Client would make value decrease from 19 to 7
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 7
-control   | W1028 01:23:36.824286       1 control.go:228] Client would make value decrease from 19 to 9
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 9
-control   | W1028 01:23:36.829710       1 control.go:228] Client would make value decrease from 19 to 11
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 11
-control   | W1028 01:23:36.834703       1 control.go:228] Client would make value decrease from 19 to 14
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 14
-control   | W1028 01:23:36.839110       1 control.go:228] Client would make value decrease from 19 to 15
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 15
-control   | W1028 01:23:36.843238       1 control.go:228] Client would make value decrease from 19 to 16
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 16
-control   | W1028 01:23:36.847027       1 control.go:228] Client would make value decrease from 19 to 17
-workload  | HttpStatus=400 Message=Client would make value decrease from 19 to 17
-vault1    | I1028 01:23:36.850986       1 vault.go:103] Set Vault :8001 Counter 20
-vault3    | W1028 01:23:36.850990       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
-vault2    | I1028 01:23:36.850999       1 vault.go:103] Set Vault :8002 Counter 20
+control   | W1029 00:26:47.507041       1 control.go:228] Client would make value decrease from 17 to 2
+workload  | HttpStatus=400 Message=Client would make value decrease from 17 to 2
+control   | W1029 00:26:47.514229       1 control.go:228] Client would make value decrease from 17 to 4
+workload  | HttpStatus=400 Message=Client would make value decrease from 17 to 4
+control   | W1029 00:26:47.521093       1 control.go:228] Client would make value decrease from 17 to 5
+workload  | HttpStatus=400 Message=Client would make value decrease from 17 to 5
+control   | W1029 00:26:47.526721       1 control.go:228] Client would make value decrease from 17 to 8
+workload  | HttpStatus=400 Message=Client would make value decrease from 17 to 8
+control   | W1029 00:26:47.530182       1 control.go:228] Client would make value decrease from 17 to 11
+workload  | HttpStatus=400 Message=Client would make value decrease from 17 to 11
+control   | W1029 00:26:47.534716       1 control.go:228] Client would make value decrease from 17 to 14
+workload  | HttpStatus=400 Message=Client would make value decrease from 17 to 14
+control   | W1029 00:26:47.539558       1 control.go:228] Client would make value decrease from 17 to 16
+workload  | HttpStatus=400 Message=Client would make value decrease from 17 to 16
+vault3    | I1029 00:26:47.544127       1 vault.go:103] Set Vault :8003 Counter 18
+
+
+vault2    | I1029 00:26:47.544119       1 vault.go:103] Set Vault :8002 Counter 18
+vault1    | I1029 00:26:47.544120       1 vault.go:103] Set Vault :8001 Counter 18
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-control   | I1028 01:23:36.855102       1 control.go:122] Counts data: map[19:1 20:2]
-workload  | HttpStatus=200 Expected=20 Actual=20
-vault1    | I1028 01:23:37.867860       1 vault.go:103] Set Vault :8001 Counter 23
-vault3    | I1028 01:23:37.867830       1 vault.go:103] Set Vault :8003 Counter 23
-vault2    | I1028 01:23:37.867849       1 vault.go:103] Set Vault :8002 Counter 23
+vault3    | I1029 00:26:47.549315       1 vault.go:103] Set Vault :8003 Counter 21
+
+
+vault2    | I1029 00:26:47.549346       1 vault.go:103] Set Vault :8002 Counter 21
+vault1    | I1029 00:26:47.549373       1 vault.go:103] Set Vault :8001 Counter 21
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault3    | W1028 01:23:37.874713       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
+vault3    | I1029 00:26:47.553978       1 vault.go:103] Set Vault :8003 Counter 23
 
 
-vault2    | I1028 01:23:37.874732       1 vault.go:103] Set Vault :8002 Counter 24
-vault1    | I1028 01:23:37.874717       1 vault.go:103] Set Vault :8001 Counter 24
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-
-
-vault1    | I1028 01:23:37.879639       1 vault.go:103] Set Vault :8001 Counter 27
-vault2    | I1028 01:23:37.879622       1 vault.go:103] Set Vault :8002 Counter 27
-vault3    | I1028 01:23:37.879646       1 vault.go:103] Set Vault :8003 Counter 27
-
-
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault1    | I1028 01:23:37.883971       1 vault.go:103] Set Vault :8001 Counter 29
-
-vault3    | W1028 01:23:37.883970       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
-vault2    | I1028 01:23:37.883986       1 vault.go:103] Set Vault :8002 Counter 29
+vault2    | I1029 00:26:47.553955       1 vault.go:103] Set Vault :8002 Counter 23
+vault1    | I1029 00:26:47.553961       1 vault.go:103] Set Vault :8001 Counter 23
 
 
 
@@ -345,184 +244,262 @@ vault2    | I1028 01:23:37.883986       1 vault.go:103] Set Vault :8002 Counter 
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
 
 
-vault1    | I1028 01:23:37.888560       1 vault.go:103] Set Vault :8001 Counter 30
-
-
-vault3    | W1028 01:23:37.888594       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
-vault2    | I1028 01:23:37.888584       1 vault.go:103] Set Vault :8002 Counter 30
-
-
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-control   | I1028 01:23:37.894033       1 control.go:122] Counts data: map[27:1 30:2]
-workload  | HttpStatus=200 Expected=30 Actual=30
-vault1    | I1028 01:23:38.905065       1 vault.go:103] Set Vault :8001 Counter 32
-vault2    | I1028 01:23:38.905050       1 vault.go:103] Set Vault :8002 Counter 32
-vault3    | W1028 01:23:38.905056       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
+vault3    | I1029 00:26:47.558112       1 vault.go:103] Set Vault :8003 Counter 24
+
+vault2    | I1029 00:26:47.558081       1 vault.go:103] Set Vault :8002 Counter 24
+vault1    | I1029 00:26:47.558061       1 vault.go:103] Set Vault :8001 Counter 24
+
+
+
+
+vault2    | I1029 00:26:47.562638       1 vault.go:103] Set Vault :8002 Counter 26
+vault1    | I1029 00:26:47.562664       1 vault.go:103] Set Vault :8001 Counter 26
+vault3    | I1029 00:26:47.562717       1 vault.go:103] Set Vault :8003 Counter 26
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:26:47.567016       1 vault.go:103] Set Vault :8003 Counter 27
 
 
-vault1    | I1028 01:23:38.913375       1 vault.go:103] Set Vault :8001 Counter 33
-vault2    | I1028 01:23:38.913459       1 vault.go:103] Set Vault :8002 Counter 33
-vault3    | W1028 01:23:38.913368       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
+vault1    | I1029 00:26:47.567028       1 vault.go:103] Set Vault :8001 Counter 27
+vault2    | I1029 00:26:47.567072       1 vault.go:103] Set Vault :8002 Counter 27
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:26:47.570994       1 vault.go:103] Set Vault :8003 Counter 28
 
 
-vault2    | I1028 01:23:38.920792       1 vault.go:103] Set Vault :8002 Counter 34
-vault1    | I1028 01:23:38.920819       1 vault.go:103] Set Vault :8001 Counter 34
-vault3    | I1028 01:23:38.920825       1 vault.go:103] Set Vault :8003 Counter 34
-
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-
-
-vault2    | I1028 01:23:38.926972       1 vault.go:103] Set Vault :8002 Counter 35
-vault1    | I1028 01:23:38.927067       1 vault.go:103] Set Vault :8001 Counter 35
-
-
-
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-
-vault2    | I1028 01:23:38.932642       1 vault.go:103] Set Vault :8002 Counter 36
-vault1    | I1028 01:23:38.932615       1 vault.go:103] Set Vault :8001 Counter 36
-
-
-vault3    | W1028 01:23:38.932646       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
-
-
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault3    | W1028 01:23:38.936709       1 vault.go:89] INTENTIONAL FAULT: Dropping write to vault 8003 (failureRate=50%)
-
-vault2    | I1028 01:23:38.936733       1 vault.go:103] Set Vault :8002 Counter 37
-vault1    | I1028 01:23:38.936738       1 vault.go:103] Set Vault :8001 Counter 37
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault2    | I1028 01:23:38.941055       1 vault.go:103] Set Vault :8002 Counter 38
-
-
-vault3    | I1028 01:23:38.941043       1 vault.go:103] Set Vault :8003 Counter 38
-vault1    | I1028 01:23:38.941039       1 vault.go:103] Set Vault :8001 Counter 38
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault1    | I1028 01:23:38.944808       1 vault.go:103] Set Vault :8001 Counter 41
-vault2    | I1028 01:23:38.944845       1 vault.go:103] Set Vault :8002 Counter 41
-vault3    | I1028 01:23:38.944856       1 vault.go:103] Set Vault :8003 Counter 41
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault3    | I1028 01:23:38.948567       1 vault.go:103] Set Vault :8003 Counter 44
-vault1    | I1028 01:23:38.948629       1 vault.go:103] Set Vault :8001 Counter 44
-vault2    | I1028 01:23:38.948589       1 vault.go:103] Set Vault :8002 Counter 44
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault1    | I1028 01:23:38.952378       1 vault.go:103] Set Vault :8001 Counter 46
-vault3    | I1028 01:23:38.952361       1 vault.go:103] Set Vault :8003 Counter 46
-vault2    | I1028 01:23:38.952361       1 vault.go:103] Set Vault :8002 Counter 46
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault1    | I1028 01:23:38.955915       1 vault.go:103] Set Vault :8001 Counter 48
-vault3    | I1028 01:23:38.955946       1 vault.go:103] Set Vault :8003 Counter 48
-vault2    | I1028 01:23:38.955908       1 vault.go:103] Set Vault :8002 Counter 48
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault3    | I1028 01:23:38.959567       1 vault.go:103] Set Vault :8003 Counter 51
-vault1    | I1028 01:23:38.959580       1 vault.go:103] Set Vault :8001 Counter 51
-vault2    | I1028 01:23:38.960260       1 vault.go:103] Set Vault :8002 Counter 51
-workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
-vault2    | I1028 01:23:38.963981       1 vault.go:103] Set Vault :8002 Counter 53
-
-
-vault3    | I1028 01:23:38.964013       1 vault.go:103] Set Vault :8003 Counter 53
-vault1    | I1028 01:23:38.963972       1 vault.go:103] Set Vault :8001 Counter 53
+vault2    | I1029 00:26:47.571086       1 vault.go:103] Set Vault :8002 Counter 28
+vault1    | I1029 00:26:47.571001       1 vault.go:103] Set Vault :8001 Counter 28
 workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
 workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:38.967933       1 control.go:228] Client would make value decrease from 53 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 0
-control   | I1028 01:23:38.971767       1 control.go:122] Counts data: map[53:3]
-workload  | HttpStatus=200 Expected=0 Actual=53
+control   | W1029 00:26:47.574676       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:47.578799       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
 workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:39.982991       1 control.go:228] Client would make value decrease from 53 to 1
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 1
 workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:39.991021       1 control.go:228] Client would make value decrease from 53 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 0
-control   | I1028 01:23:39.998422       1 control.go:122] Counts data: map[53:3]
-workload  | HttpStatus=200 Expected=0 Actual=53
+control   | W1029 00:26:48.590271       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:48.599113       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
 workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:41.011851       1 control.go:228] Client would make value decrease from 53 to 1
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 1
-control   | W1028 01:23:41.015742       1 control.go:228] Client would make value decrease from 53 to 4
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 4
-control   | W1028 01:23:41.019804       1 control.go:228] Client would make value decrease from 53 to 5
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 5
-control   | W1028 01:23:41.024977       1 control.go:228] Client would make value decrease from 53 to 8
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 8
-control   | W1028 01:23:41.030061       1 control.go:228] Client would make value decrease from 53 to 9
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 9
-control   | W1028 01:23:41.034787       1 control.go:228] Client would make value decrease from 53 to 12
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 12
-control   | W1028 01:23:41.039861       1 control.go:228] Client would make value decrease from 53 to 13
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 13
-control   | W1028 01:23:41.044651       1 control.go:228] Client would make value decrease from 53 to 14
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 14
-control   | W1028 01:23:41.049316       1 control.go:228] Client would make value decrease from 53 to 17
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 17
+control   | W1029 00:26:49.611637       1 control.go:228] Client would make value decrease from 28 to 1
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 1
+control   | W1029 00:26:49.619394       1 control.go:228] Client would make value decrease from 28 to 3
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 3
+control   | W1029 00:26:49.626070       1 control.go:228] Client would make value decrease from 28 to 6
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 6
 workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:41.053290       1 control.go:228] Client would make value decrease from 53 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 0
-control   | I1028 01:23:41.057434       1 control.go:122] Counts data: map[53:3]
-workload  | HttpStatus=200 Expected=0 Actual=53
+control   | W1029 00:26:49.630074       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:49.634086       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
 workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:42.069927       1 control.go:228] Client would make value decrease from 53 to 1
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 1
-control   | W1028 01:23:42.078240       1 control.go:228] Client would make value decrease from 53 to 2
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 2
-control   | W1028 01:23:42.084628       1 control.go:228] Client would make value decrease from 53 to 3
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 3
-control   | W1028 01:23:42.088101       1 control.go:228] Client would make value decrease from 53 to 5
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 5
-control   | W1028 01:23:42.091544       1 control.go:228] Client would make value decrease from 53 to 6
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 6
-control   | W1028 01:23:42.095207       1 control.go:228] Client would make value decrease from 53 to 7
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 7
-control   | W1028 01:23:42.099032       1 control.go:228] Client would make value decrease from 53 to 10
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 10
-control   | I1028 01:23:42.102629       1 control.go:122] Counts data: map[53:3]
-workload  | HttpStatus=200 Expected=10 Actual=53
-workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:43.112126       1 control.go:228] Client would make value decrease from 53 to 12
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 12
-control   | W1028 01:23:43.116245       1 control.go:228] Client would make value decrease from 53 to 14
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 14
-control   | W1028 01:23:43.119638       1 control.go:228] Client would make value decrease from 53 to 17
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 17
-control   | W1028 01:23:43.123058       1 control.go:228] Client would make value decrease from 53 to 18
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 18
-control   | W1028 01:23:43.126306       1 control.go:228] Client would make value decrease from 53 to 20
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 20
-control   | I1028 01:23:43.129971       1 control.go:122] Counts data: map[53:3]
-workload  | HttpStatus=200 Expected=20 Actual=53
-workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:44.143854       1 control.go:228] Client would make value decrease from 53 to 21
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 21
+control   | W1029 00:26:50.646216       1 control.go:228] Client would make value decrease from 28 to 1
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 1
 workload  | INFO: Simulating failure, resetting n to zero
-control   | W1028 01:23:44.151683       1 control.go:228] Client would make value decrease from 53 to 0
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 0
-control   | I1028 01:23:44.156944       1 control.go:122] Counts data: map[53:3]
-workload  | HttpStatus=200 Expected=0 Actual=53
+control   | W1029 00:26:50.650512       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:50.653935       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
 workload  | ERROR: Storage vaults returned unexpected value!
-control   | W1028 01:23:45.169123       1 control.go:228] Client would make value decrease from 53 to 1
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 1
-control   | W1028 01:23:45.173215       1 control.go:228] Client would make value decrease from 53 to 2
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 2
-control   | W1028 01:23:45.176650       1 control.go:228] Client would make value decrease from 53 to 3
-workload  | HttpStatus=400 Message=Client would make value decrease from 53 to 3
+control   | W1029 00:26:51.667046       1 control.go:228] Client would make value decrease from 28 to 3
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 3
+control   | W1029 00:26:51.671884       1 control.go:228] Client would make value decrease from 28 to 5
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 5
+control   | W1029 00:26:51.676057       1 control.go:228] Client would make value decrease from 28 to 8
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 8
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:26:51.679600       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:51.683160       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:26:52.697346       1 control.go:228] Client would make value decrease from 28 to 2
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 2
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:26:52.701962       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:52.706814       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:26:53.720337       1 control.go:228] Client would make value decrease from 28 to 3
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 3
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:26:53.727980       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:53.735043       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:26:54.750728       1 control.go:228] Client would make value decrease from 28 to 2
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 2
+control   | W1029 00:26:54.758775       1 control.go:228] Client would make value decrease from 28 to 4
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 4
+control   | W1029 00:26:54.765326       1 control.go:228] Client would make value decrease from 28 to 6
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 6
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:26:54.770839       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:54.777332       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:26:55.791702       1 control.go:228] Client would make value decrease from 28 to 3
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 3
+control   | W1029 00:26:55.799078       1 control.go:228] Client would make value decrease from 28 to 4
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 4
+control   | W1029 00:26:55.805921       1 control.go:228] Client would make value decrease from 28 to 5
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 5
+control   | W1029 00:26:55.811907       1 control.go:228] Client would make value decrease from 28 to 7
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 7
+control   | W1029 00:26:55.816910       1 control.go:228] Client would make value decrease from 28 to 8
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 8
+control   | W1029 00:26:55.822073       1 control.go:228] Client would make value decrease from 28 to 9
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 9
+control   | W1029 00:26:55.826831       1 control.go:228] Client would make value decrease from 28 to 12
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 12
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:26:55.830995       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:55.835461       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:26:56.845816       1 control.go:228] Client would make value decrease from 28 to 1
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 1
+control   | W1029 00:26:56.849742       1 control.go:228] Client would make value decrease from 28 to 3
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 3
+control   | W1029 00:26:56.854010       1 control.go:228] Client would make value decrease from 28 to 6
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 6
+control   | W1029 00:26:56.857963       1 control.go:228] Client would make value decrease from 28 to 9
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 9
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:26:56.861743       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:56.865441       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:26:57.879701       1 control.go:228] Client would make value decrease from 28 to 2
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 2
+control   | W1029 00:26:57.885834       1 control.go:228] Client would make value decrease from 28 to 4
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 4
+control   | W1029 00:26:57.892807       1 control.go:228] Client would make value decrease from 28 to 5
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 5
+control   | W1029 00:26:57.898898       1 control.go:228] Client would make value decrease from 28 to 8
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 8
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:26:57.904407       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:57.910047       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:26:58.926645       1 control.go:228] Client would make value decrease from 28 to 3
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 3
+control   | W1029 00:26:58.930635       1 control.go:228] Client would make value decrease from 28 to 5
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 5
+control   | W1029 00:26:58.934573       1 control.go:228] Client would make value decrease from 28 to 6
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 6
+control   | W1029 00:26:58.940228       1 control.go:228] Client would make value decrease from 28 to 7
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 7
+control   | W1029 00:26:58.943543       1 control.go:228] Client would make value decrease from 28 to 9
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 9
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:26:58.948205       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:58.952934       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:26:59.969684       1 control.go:228] Client would make value decrease from 28 to 2
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 2
+control   | W1029 00:26:59.977005       1 control.go:228] Client would make value decrease from 28 to 3
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 3
+control   | W1029 00:26:59.983343       1 control.go:228] Client would make value decrease from 28 to 6
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 6
+control   | W1029 00:26:59.989254       1 control.go:228] Client would make value decrease from 28 to 9
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 9
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:26:59.993108       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:26:59.996476       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:27:01.009562       1 control.go:228] Client would make value decrease from 28 to 2
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 2
+control   | W1029 00:27:01.017508       1 control.go:228] Client would make value decrease from 28 to 4
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 4
+control   | W1029 00:27:01.022991       1 control.go:228] Client would make value decrease from 28 to 7
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 7
+control   | W1029 00:27:01.027229       1 control.go:228] Client would make value decrease from 28 to 9
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 9
+control   | W1029 00:27:01.032748       1 control.go:228] Client would make value decrease from 28 to 10
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 10
+control   | I1029 00:27:01.038212       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=10 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:27:02.052243       1 control.go:228] Client would make value decrease from 28 to 11
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 11
+control   | W1029 00:27:02.059669       1 control.go:228] Client would make value decrease from 28 to 14
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 14
+control   | W1029 00:27:02.065174       1 control.go:228] Client would make value decrease from 28 to 15
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 15
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:27:02.069113       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:27:02.075189       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:27:03.088193       1 control.go:228] Client would make value decrease from 28 to 2
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 2
+control   | W1029 00:27:03.095107       1 control.go:228] Client would make value decrease from 28 to 4
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 4
+control   | W1029 00:27:03.101310       1 control.go:228] Client would make value decrease from 28 to 5
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 5
+control   | W1029 00:27:03.106688       1 control.go:228] Client would make value decrease from 28 to 8
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 8
+control   | W1029 00:27:03.111756       1 control.go:228] Client would make value decrease from 28 to 10
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 10
+control   | I1029 00:27:03.117301       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=10 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:27:04.134096       1 control.go:228] Client would make value decrease from 28 to 13
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 13
+control   | W1029 00:27:04.141710       1 control.go:228] Client would make value decrease from 28 to 16
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 16
+control   | W1029 00:27:04.148358       1 control.go:228] Client would make value decrease from 28 to 18
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 18
+control   | W1029 00:27:04.153846       1 control.go:228] Client would make value decrease from 28 to 21
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 21
+control   | W1029 00:27:04.158759       1 control.go:228] Client would make value decrease from 28 to 22
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 22
+control   | W1029 00:27:04.163698       1 control.go:228] Client would make value decrease from 28 to 24
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 24
+workload  | INFO: Simulating failure, resetting n to zero
+control   | W1029 00:27:04.168396       1 control.go:228] Client would make value decrease from 28 to 0
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 0
+control   | I1029 00:27:04.172748       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=0 Actual=28
+workload  | ERROR: Storage vaults returned unexpected value!
+control   | W1029 00:27:05.189212       1 control.go:228] Client would make value decrease from 28 to 3
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 3
+control   | W1029 00:27:05.196900       1 control.go:228] Client would make value decrease from 28 to 4
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 4
+control   | W1029 00:27:05.202575       1 control.go:228] Client would make value decrease from 28 to 6
+workload  | HttpStatus=400 Message=Client would make value decrease from 28 to 6
+workload  | Waiting 5 seconds for any straggling writes ... done.
+control   | I1029 00:27:10.219630       1 control.go:122] Counts data: map[28:3]
+workload  | HttpStatus=200 Expected=6 Actual=28
+workload  | ERROR: Storage vaults finished with unexpected value!
+workload  | ==== END TEST ====
+workload exited with code 0
 Gracefully Stopping... press Ctrl+C again to force
 
- Container vault2  Stopping
- Container control  Stopping
- Container vault1  Stopping
  Container workload  Stopping
+ Container vault1  Stopping
+ Container control  Stopping
+ Container vault2  Stopping
  Container vault3  Stopping
+ Container workload  Stopped
  Container vault1  Stopped
 vault1 exited with code 2
- Container control  Stopped
-control exited with code 2
  Container vault3  Stopped
 vault3 exited with code 2
  Container vault2  Stopped
 vault2 exited with code 2
-workload  | Waiting 5 seconds for any straggling writes ... done.
- Container workload  Stopped
-workload exited with code 137
+ Container control  Stopped
+control exited with code 2
