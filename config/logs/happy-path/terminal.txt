@@ -1,0 +1,773 @@
+➜  docker-compose up --build
+WARN[0000] /Users/evanbenoit/Documents/git/personal/glitch-grid/config/docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion
+[+] Building 0.8s (51/51) FINISHED
+ => [internal] load local bake definitions                                      0.0s
+ => => reading from stdin 2.56kB                                                0.0s
+ => [control internal] load build definition from Dockerfile                    0.0s
+ => => transferring dockerfile: 1.35kB                                          0.0s
+ => [vault1 internal] load build definition from Dockerfile                     0.0s
+ => => transferring dockerfile: 1.29kB                                          0.0s
+ => [workload internal] load build definition from Dockerfile                   0.0s
+ => => transferring dockerfile: 815B                                            0.0s
+ => [vault3 internal] load metadata for docker.io/library/debian:bookworm-slim  0.1s
+ => [vault1 internal] load metadata for docker.io/library/golang:1.20-bookworm  0.2s
+ => [workload internal] load metadata for docker.io/library/alpine:latest       0.1s
+ => [workload internal] load .dockerignore                                      0.0s
+ => => transferring context: 2B                                                 0.0s
+ => [workload 1/8] FROM docker.io/library/alpine:latest@sha256:4b7ce07002c69e8  0.0s
+ => => resolve docker.io/library/alpine:latest@sha256:4b7ce07002c69e8f3d704a9c  0.0s
+ => [workload internal] load build context                                      0.0s
+ => => transferring context: 67B                                                0.0s
+ => CACHED [workload 2/8] RUN apk update                                        0.0s
+ => CACHED [workload 3/8] RUN apk upgrade                                       0.0s
+ => CACHED [workload 4/8] RUN apk add bash curl                                 0.0s
+ => CACHED [workload 5/8] WORKDIR /opt/antithesis/test/v1/quickstart            0.0s
+ => CACHED [workload 6/8] COPY workload.sh ./singleton_driver_workload.sh       0.0s
+ => CACHED [workload 7/8] COPY healthcheck.sh ./anytime_healthcheck.sh          0.0s
+ => CACHED [workload 8/8] RUN chmod +x *.sh                                     0.0s
+ => [workload] exporting to image                                               0.1s
+ => => exporting layers                                                         0.0s
+ => => exporting manifest sha256:7fc92a9fd2cf3fa5ab1fbc8c40b124c14d6b6217d6baa  0.0s
+ => => exporting config sha256:f65e0286fca3c4a329e1db565d7d2f20db47de11d7a9831  0.0s
+ => => exporting attestation manifest sha256:150c76c79eeff280ac0f179fea0a84584  0.0s
+ => => exporting manifest list sha256:cce8c6f4861046fc34aea711a50876b55a57f970  0.0s
+ => => naming to docker.io/library/demo-workload:antithesis                     0.0s
+ => => unpacking to docker.io/library/demo-workload:antithesis                  0.0s
+ => [vault3 internal] load .dockerignore                                        0.0s
+ => => transferring context: 2B                                                 0.0s
+ => [control internal] load .dockerignore                                       0.0s
+ => => transferring context: 2B                                                 0.0s
+ => [control builder 1/7] FROM docker.io/library/golang:1.20-bookworm@sha256:9  0.0s
+ => => resolve docker.io/library/golang:1.20-bookworm@sha256:9fa9101141c01e944  0.0s
+ => [vault3 internal] load build context                                        0.0s
+ => => transferring context: 81B                                                0.0s
+ => [vault2 stage-1 1/4] FROM docker.io/library/debian:bookworm-slim@sha256:78  0.0s
+ => => resolve docker.io/library/debian:bookworm-slim@sha256:78d2f66e0fec9e5a3  0.0s
+ => [control internal] load build context                                       0.0s
+ => => transferring context: 84B                                                0.0s
+ => CACHED [vault2 builder 2/7] RUN mkdir -p /go/src/antithesis/vault           0.0s
+ => CACHED [vault2 builder 3/7] COPY go.sum go.mod *.go /go/src/antithesis/vau  0.0s
+ => CACHED [vault2 builder 4/7] RUN cd /go/src/antithesis/vault && go install   0.0s
+ => CACHED [vault2 builder 5/7] RUN mkdir -p /go/src/antithesis/vault-instrume  0.0s
+ => CACHED [vault2 builder 6/7] RUN /go/bin/antithesis-go-instrumentor /go/src  0.0s
+ => CACHED [vault2 builder 7/7] RUN cd /go/src/antithesis/vault-instrumented/c  0.0s
+ => CACHED [vault2 stage-1 2/4] COPY --from=builder /go/src/antithesis/vault-i  0.0s
+ => CACHED [vault2 stage-1 3/4] RUN mkdir -p /symbols                           0.0s
+ => CACHED [vault2 stage-1 4/4] COPY --from=builder /go/src/antithesis/vault-i  0.0s
+ => CACHED [control builder 2/7] RUN mkdir -p /go/src/antithesis/control        0.0s
+ => CACHED [control builder 3/7] COPY go.sum go.mod *.go /go/src/antithesis/co  0.0s
+ => CACHED [control builder 4/7] RUN cd /go/src/antithesis/control && go insta  0.0s
+ => CACHED [control builder 5/7] RUN mkdir -p /go/src/antithesis/control-instr  0.0s
+ => CACHED [control builder 6/7] RUN /go/bin/antithesis-go-instrumentor /go/sr  0.0s
+ => CACHED [control builder 7/7] RUN cd /go/src/antithesis/control-instrumente  0.0s
+ => CACHED [control stage-1 2/4] COPY --from=builder /go/src/antithesis/contro  0.0s
+ => CACHED [control stage-1 3/4] RUN mkdir -p /symbols                          0.0s
+ => CACHED [control stage-1 4/4] COPY --from=builder /go/src/antithesis/contro  0.0s
+ => [control] exporting to image                                                0.1s
+ => => exporting layers                                                         0.0s
+ => => exporting manifest sha256:b91370fc1b8db1d45e66a07643b433387efdd0f4a0d80  0.0s
+ => => exporting config sha256:c01241fd2c23a62b78e7779f9517b161cdfc7970dadcdcd  0.0s
+ => => exporting attestation manifest sha256:9fe21a38f11d8b39ecd4b48c0adb75c4f  0.0s
+ => => exporting manifest list sha256:695220be26b160b29c5c474c1a3c6db99f68ac04  0.0s
+ => => naming to docker.io/library/demo-go-control:antithesis                   0.0s
+ => => unpacking to docker.io/library/demo-go-control:antithesis                0.0s
+ => [vault3] exporting to image                                                 0.1s
+ => => exporting layers                                                         0.0s
+ => => exporting manifest sha256:83c1ef0a91e981ce9e4336fc9567513b7d23417d1ad39  0.0s
+ => => exporting config sha256:cebc1d8d88d3e1f7fd5370c318584f88172f897b36812e3  0.0s
+ => => exporting attestation manifest sha256:4c52ebc5735b35aef099325d2048f564b  0.0s
+ => => exporting manifest list sha256:962a6074fbe15b245498701a6f1052d189eda2d7  0.0s
+ => => naming to docker.io/library/demo-go-vault:antithesis                     0.0s
+ => => unpacking to docker.io/library/demo-go-vault:antithesis                  0.0s
+ => [vault1] exporting to image                                                 0.1s
+ => => exporting layers                                                         0.0s
+ => => exporting manifest sha256:85d9bc3fdc977704d39789a6699bf4f9a1e36bcb05c33  0.0s
+ => => exporting config sha256:e42f156c61d6b782fd6e0cad9c0176175fa982adfa94e29  0.0s
+ => => exporting attestation manifest sha256:50eefab4664369b256540bf292351fd5e  0.0s
+ => => exporting manifest list sha256:c04a1c9a7819bb0c629ac21e50f074ce953655e5  0.0s
+ => => naming to docker.io/library/demo-go-vault:antithesis                     0.0s
+ => => unpacking to docker.io/library/demo-go-vault:antithesis                  0.0s
+ => [vault2] exporting to image                                                 0.1s
+ => => exporting layers                                                         0.0s
+ => => exporting manifest sha256:e00f1e56e5f3426b7f7963985cc7ef808dfcb29be1546  0.0s
+ => => exporting config sha256:422047ba1dec69bb044a26aa6be45aaca067592957343ab  0.0s
+ => => exporting attestation manifest sha256:5f81a22efaeb22dea63ef1e02c079abd0  0.0s
+ => => exporting manifest list sha256:c8834568c3cb64a9433fb4af3581f51ef089df7f  0.0s
+ => => naming to docker.io/library/demo-go-vault:antithesis                     0.0s
+ => => unpacking to docker.io/library/demo-go-vault:antithesis                  0.0s
+ => [workload] resolving provenance for metadata file                           0.0s
+ => [vault3] resolving provenance for metadata file                             0.0s
+ => [control] resolving provenance for metadata file                            0.0s
+ => [vault1] resolving provenance for metadata file                             0.0s
+ => [vault2] resolving provenance for metadata file                             0.0s
+[+] Running 8/8
+ ✔ demo-go-control:antithesis  Built                                            0.0s
+ ✔ demo-go-vault:antithesis    Built                                            0.0s
+ ✔ demo-workload:antithesis    Built                                            0.0s
+ ✔ Container control           Recreated                                        0.1s
+ ✔ Container vault1            Recreated                                        0.1s
+ ✔ Container workload          Recreated                                        0.1s
+ ✔ Container vault3            Recreated                                        0.1s
+ ✔ Container vault2            Recreated                                        0.1s
+Attaching to control, vault1, vault2, vault3, workload
+workload  | INFO: Using FAILURE_RATE=0%
+control   | Control Server booting...
+control   | I1029 00:12:30.080624       1 control.go:45] Defined 3 vaults
+vault2    | I1029 00:12:30.082393       1 vault.go:46] Starting Vault server on port 8002 with failure rate 0%
+vault3    | I1029 00:12:30.091790       1 vault.go:46] Starting Vault server on port 8003 with failure rate 0%
+vault1    | I1029 00:12:30.099303       1 vault.go:46] Starting Vault server on port 8001 with failure rate 0%
+workload  | Waiting 15 seconds for the storage system to become available ... done.
+workload  | === START TEST ===
+
+
+vault1    | I1029 00:12:45.108105       1 vault.go:103] Set Vault :8001 Counter 1
+vault3    | I1029 00:12:45.108114       1 vault.go:103] Set Vault :8003 Counter 1
+vault2    | I1029 00:12:45.108082       1 vault.go:103] Set Vault :8002 Counter 1
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:45.119634       1 vault.go:103] Set Vault :8001 Counter 2
+vault3    | I1029 00:12:45.119704       1 vault.go:103] Set Vault :8003 Counter 2
+
+vault2    | I1029 00:12:45.119744       1 vault.go:103] Set Vault :8002 Counter 2
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:45.125293       1 vault.go:103] Set Vault :8003 Counter 4
+vault2    | I1029 00:12:45.125288       1 vault.go:103] Set Vault :8002 Counter 4
+vault1    | I1029 00:12:45.125426       1 vault.go:103] Set Vault :8001 Counter 4
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault3    | I1029 00:12:45.130366       1 vault.go:103] Set Vault :8003 Counter 7
+vault2    | I1029 00:12:45.130324       1 vault.go:103] Set Vault :8002 Counter 7
+vault1    | I1029 00:12:45.130313       1 vault.go:103] Set Vault :8001 Counter 7
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:45.135055       1 vault.go:103] Set Vault :8003 Counter 9
+vault2    | I1029 00:12:45.135072       1 vault.go:103] Set Vault :8002 Counter 9
+vault1    | I1029 00:12:45.135054       1 vault.go:103] Set Vault :8001 Counter 9
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:45.139060       1 vault.go:103] Set Vault :8001 Counter 11
+vault2    | I1029 00:12:45.139055       1 vault.go:103] Set Vault :8002 Counter 11
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:45.143457       1 vault.go:103] Set Vault :8003 Counter 13
+vault2    | I1029 00:12:45.143510       1 vault.go:103] Set Vault :8002 Counter 13
+
+
+
+vault1    | I1029 00:12:45.143449       1 vault.go:103] Set Vault :8001 Counter 13
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault1    | I1029 00:12:45.147906       1 vault.go:103] Set Vault :8001 Counter 15
+vault2    | I1029 00:12:45.147883       1 vault.go:103] Set Vault :8002 Counter 15
+vault3    | I1029 00:12:45.147898       1 vault.go:103] Set Vault :8003 Counter 15
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:45.151952       1 vault.go:103] Set Vault :8001 Counter 18
+
+
+vault3    | I1029 00:12:45.151925       1 vault.go:103] Set Vault :8003 Counter 18
+vault2    | I1029 00:12:45.151922       1 vault.go:103] Set Vault :8002 Counter 18
+
+
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:45.156046       1 vault.go:103] Set Vault :8001 Counter 19
+
+
+vault2    | I1029 00:12:45.156068       1 vault.go:103] Set Vault :8002 Counter 19
+vault3    | I1029 00:12:45.156062       1 vault.go:103] Set Vault :8003 Counter 19
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:45.160219       1 vault.go:103] Set Vault :8002 Counter 22
+vault3    | I1029 00:12:45.160267       1 vault.go:103] Set Vault :8003 Counter 22
+
+
+vault1    | I1029 00:12:45.160287       1 vault.go:103] Set Vault :8001 Counter 22
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:45.164207       1 vault.go:103] Set Vault :8003 Counter 24
+vault2    | I1029 00:12:45.164226       1 vault.go:103] Set Vault :8002 Counter 24
+vault1    | I1029 00:12:45.164325       1 vault.go:103] Set Vault :8001 Counter 24
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:45.168279       1 vault.go:103] Set Vault :8001 Counter 27
+
+
+vault2    | I1029 00:12:45.168276       1 vault.go:103] Set Vault :8002 Counter 27
+vault3    | I1029 00:12:45.168374       1 vault.go:103] Set Vault :8003 Counter 27
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:45.172336       1 vault.go:103] Set Vault :8001 Counter 28
+vault2    | I1029 00:12:45.172512       1 vault.go:103] Set Vault :8002 Counter 28
+
+vault3    | I1029 00:12:45.172387       1 vault.go:103] Set Vault :8003 Counter 28
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault1    | I1029 00:12:45.176608       1 vault.go:103] Set Vault :8001 Counter 30
+vault3    | I1029 00:12:45.176618       1 vault.go:103] Set Vault :8003 Counter 30
+vault2    | I1029 00:12:45.176635       1 vault.go:103] Set Vault :8002 Counter 30
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+control   | I1029 00:12:45.180884       1 control.go:122] Counts data: map[30:3]
+workload  | HttpStatus=200 Expected=30 Actual=30
+vault2    | I1029 00:12:46.191949       1 vault.go:103] Set Vault :8002 Counter 31
+vault3    | I1029 00:12:46.191935       1 vault.go:103] Set Vault :8003 Counter 31
+vault1    | I1029 00:12:46.191925       1 vault.go:103] Set Vault :8001 Counter 31
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:46.199594       1 vault.go:103] Set Vault :8002 Counter 32
+vault1    | I1029 00:12:46.199652       1 vault.go:103] Set Vault :8001 Counter 32
+vault3    | I1029 00:12:46.199625       1 vault.go:103] Set Vault :8003 Counter 32
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:46.206955       1 vault.go:103] Set Vault :8002 Counter 35
+
+
+vault3    | I1029 00:12:46.206917       1 vault.go:103] Set Vault :8003 Counter 35
+vault1    | I1029 00:12:46.206869       1 vault.go:103] Set Vault :8001 Counter 35
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault1    | I1029 00:12:46.213626       1 vault.go:103] Set Vault :8001 Counter 37
+
+
+vault3    | I1029 00:12:46.213591       1 vault.go:103] Set Vault :8003 Counter 37
+vault2    | I1029 00:12:46.213605       1 vault.go:103] Set Vault :8002 Counter 37
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault3    | I1029 00:12:46.219481       1 vault.go:103] Set Vault :8003 Counter 39
+vault2    | I1029 00:12:46.219561       1 vault.go:103] Set Vault :8002 Counter 39
+vault1    | I1029 00:12:46.219538       1 vault.go:103] Set Vault :8001 Counter 39
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+
+vault2    | I1029 00:12:46.224754       1 vault.go:103] Set Vault :8002 Counter 40
+vault1    | I1029 00:12:46.224740       1 vault.go:103] Set Vault :8001 Counter 40
+vault3    | I1029 00:12:46.224749       1 vault.go:103] Set Vault :8003 Counter 40
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+control   | I1029 00:12:46.229752       1 control.go:122] Counts data: map[40:3]
+workload  | HttpStatus=200 Expected=40 Actual=40
+vault2    | I1029 00:12:47.241640       1 vault.go:103] Set Vault :8002 Counter 43
+vault1    | I1029 00:12:47.241627       1 vault.go:103] Set Vault :8001 Counter 43
+vault3    | I1029 00:12:47.241634       1 vault.go:103] Set Vault :8003 Counter 43
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:47.249671       1 vault.go:103] Set Vault :8003 Counter 46
+
+vault1    | I1029 00:12:47.249622       1 vault.go:103] Set Vault :8001 Counter 46
+
+
+vault2    | I1029 00:12:47.249560       1 vault.go:103] Set Vault :8002 Counter 46
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault3    | I1029 00:12:47.257302       1 vault.go:103] Set Vault :8003 Counter 47
+vault1    | I1029 00:12:47.257237       1 vault.go:103] Set Vault :8001 Counter 47
+vault2    | I1029 00:12:47.257217       1 vault.go:103] Set Vault :8002 Counter 47
+
+
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:47.264038       1 vault.go:103] Set Vault :8002 Counter 48
+
+
+vault1    | I1029 00:12:47.264069       1 vault.go:103] Set Vault :8001 Counter 48
+vault3    | I1029 00:12:47.264070       1 vault.go:103] Set Vault :8003 Counter 48
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:47.269896       1 vault.go:103] Set Vault :8001 Counter 51
+vault3    | I1029 00:12:47.269888       1 vault.go:103] Set Vault :8003 Counter 51
+vault2    | I1029 00:12:47.269911       1 vault.go:103] Set Vault :8002 Counter 51
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:47.275410       1 vault.go:103] Set Vault :8002 Counter 52
+vault3    | I1029 00:12:47.275426       1 vault.go:103] Set Vault :8003 Counter 52
+
+
+vault1    | I1029 00:12:47.275453       1 vault.go:103] Set Vault :8001 Counter 52
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:47.280524       1 vault.go:103] Set Vault :8002 Counter 55
+vault3    | I1029 00:12:47.280533       1 vault.go:103] Set Vault :8003 Counter 55
+vault1    | I1029 00:12:47.280609       1 vault.go:103] Set Vault :8001 Counter 55
+
+
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:47.285275       1 vault.go:103] Set Vault :8001 Counter 57
+
+
+vault2    | I1029 00:12:47.285323       1 vault.go:103] Set Vault :8002 Counter 57
+vault3    | I1029 00:12:47.285293       1 vault.go:103] Set Vault :8003 Counter 57
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:47.289815       1 vault.go:103] Set Vault :8001 Counter 60
+
+
+vault3    | I1029 00:12:47.289812       1 vault.go:103] Set Vault :8003 Counter 60
+vault2    | I1029 00:12:47.289812       1 vault.go:103] Set Vault :8002 Counter 60
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+control   | I1029 00:12:47.294308       1 control.go:122] Counts data: map[60:3]
+workload  | HttpStatus=200 Expected=60 Actual=60
+vault2    | I1029 00:12:48.306666       1 vault.go:103] Set Vault :8002 Counter 62
+vault1    | I1029 00:12:48.306773       1 vault.go:103] Set Vault :8001 Counter 62
+vault3    | I1029 00:12:48.306708       1 vault.go:103] Set Vault :8003 Counter 62
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:48.312816       1 vault.go:103] Set Vault :8003 Counter 64
+vault1    | I1029 00:12:48.312928       1 vault.go:103] Set Vault :8001 Counter 64
+vault2    | I1029 00:12:48.312932       1 vault.go:103] Set Vault :8002 Counter 64
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:48.319861       1 vault.go:103] Set Vault :8003 Counter 65
+vault1    | I1029 00:12:48.319848       1 vault.go:103] Set Vault :8001 Counter 65
+
+vault2    | I1029 00:12:48.319904       1 vault.go:103] Set Vault :8002 Counter 65
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:48.324257       1 vault.go:103] Set Vault :8002 Counter 67
+vault1    | I1029 00:12:48.324229       1 vault.go:103] Set Vault :8001 Counter 67
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:48.328134       1 vault.go:103] Set Vault :8003 Counter 70
+
+
+vault2    | I1029 00:12:48.328144       1 vault.go:103] Set Vault :8002 Counter 70
+vault1    | I1029 00:12:48.328189       1 vault.go:103] Set Vault :8001 Counter 70
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+control   | I1029 00:12:48.333403       1 control.go:122] Counts data: map[70:3]
+workload  | HttpStatus=200 Expected=70 Actual=70
+vault3    | I1029 00:12:49.343659       1 vault.go:103] Set Vault :8003 Counter 72
+vault2    | I1029 00:12:49.343696       1 vault.go:103] Set Vault :8002 Counter 72
+vault1    | I1029 00:12:49.343682       1 vault.go:103] Set Vault :8001 Counter 72
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:49.350901       1 vault.go:103] Set Vault :8002 Counter 73
+vault1    | I1029 00:12:49.350923       1 vault.go:103] Set Vault :8001 Counter 73
+vault3    | I1029 00:12:49.350886       1 vault.go:103] Set Vault :8003 Counter 73
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:49.357856       1 vault.go:103] Set Vault :8001 Counter 75
+vault3    | I1029 00:12:49.358611       1 vault.go:103] Set Vault :8003 Counter 75
+vault2    | I1029 00:12:49.358773       1 vault.go:103] Set Vault :8002 Counter 75
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:49.363132       1 vault.go:103] Set Vault :8003 Counter 78
+vault2    | I1029 00:12:49.363134       1 vault.go:103] Set Vault :8002 Counter 78
+
+vault1    | I1029 00:12:49.363118       1 vault.go:103] Set Vault :8001 Counter 78
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault1    | I1029 00:12:49.367116       1 vault.go:103] Set Vault :8001 Counter 79
+vault3    | I1029 00:12:49.367120       1 vault.go:103] Set Vault :8003 Counter 79
+vault2    | I1029 00:12:49.367122       1 vault.go:103] Set Vault :8002 Counter 79
+
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:49.371124       1 vault.go:103] Set Vault :8002 Counter 82
+vault3    | I1029 00:12:49.371151       1 vault.go:103] Set Vault :8003 Counter 82
+vault1    | I1029 00:12:49.371194       1 vault.go:103] Set Vault :8001 Counter 82
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:49.375070       1 vault.go:103] Set Vault :8002 Counter 85
+
+
+vault3    | I1029 00:12:49.374991       1 vault.go:103] Set Vault :8003 Counter 85
+vault1    | I1029 00:12:49.375083       1 vault.go:103] Set Vault :8001 Counter 85
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:49.378970       1 vault.go:103] Set Vault :8003 Counter 86
+
+
+vault2    | I1029 00:12:49.378963       1 vault.go:103] Set Vault :8002 Counter 86
+vault1    | I1029 00:12:49.378951       1 vault.go:103] Set Vault :8001 Counter 86
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:49.382697       1 vault.go:103] Set Vault :8003 Counter 89
+
+
+vault2    | I1029 00:12:49.382782       1 vault.go:103] Set Vault :8002 Counter 89
+vault1    | I1029 00:12:49.382770       1 vault.go:103] Set Vault :8001 Counter 89
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:49.386364       1 vault.go:103] Set Vault :8001 Counter 91
+
+
+vault2    | I1029 00:12:49.386379       1 vault.go:103] Set Vault :8002 Counter 91
+vault3    | I1029 00:12:49.386323       1 vault.go:103] Set Vault :8003 Counter 91
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:49.390088       1 vault.go:103] Set Vault :8003 Counter 94
+
+
+vault2    | I1029 00:12:49.390233       1 vault.go:103] Set Vault :8002 Counter 94
+vault1    | I1029 00:12:49.390107       1 vault.go:103] Set Vault :8001 Counter 94
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:49.393721       1 vault.go:103] Set Vault :8003 Counter 97
+vault1    | I1029 00:12:49.393762       1 vault.go:103] Set Vault :8001 Counter 97
+vault2    | I1029 00:12:49.393734       1 vault.go:103] Set Vault :8002 Counter 97
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:49.397804       1 vault.go:103] Set Vault :8002 Counter 99
+vault1    | I1029 00:12:49.397804       1 vault.go:103] Set Vault :8001 Counter 99
+vault3    | I1029 00:12:49.397779       1 vault.go:103] Set Vault :8003 Counter 99
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:49.401816       1 vault.go:103] Set Vault :8002 Counter 102
+vault1    | I1029 00:12:49.401811       1 vault.go:103] Set Vault :8001 Counter 102
+
+
+
+vault3    | I1029 00:12:49.401824       1 vault.go:103] Set Vault :8003 Counter 102
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault1    | I1029 00:12:49.405602       1 vault.go:103] Set Vault :8001 Counter 105
+vault3    | I1029 00:12:49.405632       1 vault.go:103] Set Vault :8003 Counter 105
+vault2    | I1029 00:12:49.405580       1 vault.go:103] Set Vault :8002 Counter 105
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:49.409306       1 vault.go:103] Set Vault :8001 Counter 107
+
+
+vault2    | I1029 00:12:49.409319       1 vault.go:103] Set Vault :8002 Counter 107
+vault3    | I1029 00:12:49.409333       1 vault.go:103] Set Vault :8003 Counter 107
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:49.413111       1 vault.go:103] Set Vault :8001 Counter 108
+
+vault2    | I1029 00:12:49.413094       1 vault.go:103] Set Vault :8002 Counter 108
+vault3    | I1029 00:12:49.413103       1 vault.go:103] Set Vault :8003 Counter 108
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:49.416951       1 vault.go:103] Set Vault :8003 Counter 110
+vault2    | I1029 00:12:49.417040       1 vault.go:103] Set Vault :8002 Counter 110
+vault1    | I1029 00:12:49.417000       1 vault.go:103] Set Vault :8001 Counter 110
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+control   | I1029 00:12:49.438798       1 control.go:122] Counts data: map[110:3]
+workload  | HttpStatus=200 Expected=110 Actual=110
+vault3    | I1029 00:12:50.447356       1 vault.go:103] Set Vault :8003 Counter 111
+vault1    | I1029 00:12:50.447387       1 vault.go:103] Set Vault :8001 Counter 111
+vault2    | I1029 00:12:50.446792       1 vault.go:103] Set Vault :8002 Counter 111
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:50.456097       1 vault.go:103] Set Vault :8003 Counter 112
+vault2    | I1029 00:12:50.456558       1 vault.go:103] Set Vault :8002 Counter 112
+vault1    | I1029 00:12:50.456485       1 vault.go:103] Set Vault :8001 Counter 112
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:50.462358       1 vault.go:103] Set Vault :8002 Counter 115
+
+
+
+vault3    | I1029 00:12:50.462322       1 vault.go:103] Set Vault :8003 Counter 115
+vault1    | I1029 00:12:50.462313       1 vault.go:103] Set Vault :8001 Counter 115
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:50.466700       1 vault.go:103] Set Vault :8003 Counter 118
+vault1    | I1029 00:12:50.466738       1 vault.go:103] Set Vault :8001 Counter 118
+
+vault2    | I1029 00:12:50.466722       1 vault.go:103] Set Vault :8002 Counter 118
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:50.470801       1 vault.go:103] Set Vault :8001 Counter 121
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaultsault :8002 Counter 121
+vault2    | I1029 00:12:50.476786       1 vault.go:103] Set Vault :8002 Counter 122
+vault1    | I1029 00:12:50.476783       1 vault.go:103] Set Vault :8001 Counter 122
+
+vault3    | I1029 00:12:50.476790       1 vault.go:103] Set Vault :8003 Counter 122
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:50.482850       1 vault.go:103] Set Vault :8002 Counter 123
+vault3    | I1029 00:12:50.482830       1 vault.go:103] Set Vault :8003 Counter 123
+vault1    | I1029 00:12:50.482821       1 vault.go:103] Set Vault :8001 Counter 123
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:50.486679       1 vault.go:103] Set Vault :8002 Counter 126
+vault3    | I1029 00:12:50.486674       1 vault.go:103] Set Vault :8003 Counter 126
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:50.490799       1 vault.go:103] Set Vault :8002 Counter 127
+vault1    | I1029 00:12:50.490776       1 vault.go:103] Set Vault :8001 Counter 127
+vault3    | I1029 00:12:50.490786       1 vault.go:103] Set Vault :8003 Counter 127
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:50.494599       1 vault.go:103] Set Vault :8003 Counter 129
+
+
+vault1    | I1029 00:12:50.494655       1 vault.go:103] Set Vault :8001 Counter 129
+
+
+vault2    | I1029 00:12:50.494677       1 vault.go:103] Set Vault :8002 Counter 129
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault3    | I1029 00:12:50.498275       1 vault.go:103] Set Vault :8003 Counter 132
+vault2    | I1029 00:12:50.498317       1 vault.go:103] Set Vault :8002 Counter 132
+vault1    | I1029 00:12:50.498348       1 vault.go:103] Set Vault :8001 Counter 132
+
+
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault3    | I1029 00:12:50.502061       1 vault.go:103] Set Vault :8003 Counter 133
+vault1    | I1029 00:12:50.502102       1 vault.go:103] Set Vault :8001 Counter 133
+vault2    | I1029 00:12:50.502137       1 vault.go:103] Set Vault :8002 Counter 133
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:50.506426       1 vault.go:103] Set Vault :8002 Counter 135
+
+
+vault1    | I1029 00:12:50.506420       1 vault.go:103] Set Vault :8001 Counter 135
+vault3    | I1029 00:12:50.506444       1 vault.go:103] Set Vault :8003 Counter 135
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault3    | I1029 00:12:50.510409       1 vault.go:103] Set Vault :8003 Counter 138
+vault1    | I1029 00:12:50.510424       1 vault.go:103] Set Vault :8001 Counter 138
+
+
+vault2    | I1029 00:12:50.510482       1 vault.go:103] Set Vault :8002 Counter 138
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:50.514183       1 vault.go:103] Set Vault :8003 Counter 140
+
+vault2    | I1029 00:12:50.514193       1 vault.go:103] Set Vault :8002 Counter 140
+vault1    | I1029 00:12:50.514190       1 vault.go:103] Set Vault :8001 Counter 140
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+control   | I1029 00:12:50.518121       1 control.go:122] Counts data: map[140:3]
+workload  | HttpStatus=200 Expected=140 Actual=140
+vault1    | I1029 00:12:51.528660       1 vault.go:103] Set Vault :8001 Counter 143
+vault2    | I1029 00:12:51.528685       1 vault.go:103] Set Vault :8002 Counter 143
+vault3    | I1029 00:12:51.528650       1 vault.go:103] Set Vault :8003 Counter 143
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:51.537016       1 vault.go:103] Set Vault :8003 Counter 146
+vault1    | I1029 00:12:51.537151       1 vault.go:103] Set Vault :8001 Counter 146
+vault2    | I1029 00:12:51.537297       1 vault.go:103] Set Vault :8002 Counter 146
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:51.544672       1 vault.go:103] Set Vault :8001 Counter 149
+
+
+
+v View in Docker Desktop   o View Config   w Enable Watchvault2    | I1029 00:12:51.544691       1 vault.go:103] Set Vault :8002 Counter 149
+vault3    | I1029 00:12:51.544615       1 vault.go:103] Set Vault :8003 Counter 149
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:51.551037       1 vault.go:103] Set Vault :8001 Counter 152
+vault2    | I1029 00:12:51.551091       1 vault.go:103] Set Vault :8002 Counter 152
+
+vault3    | I1029 00:12:51.551101       1 vault.go:103] Set Vault :8003 Counter 152
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:51.557527       1 vault.go:103] Set Vault :8002 Counter 153
+
+
+vault1    | I1029 00:12:51.557367       1 vault.go:103] Set Vault :8001 Counter 153
+vault3    | I1029 00:12:51.557395       1 vault.go:103] Set Vault :8003 Counter 153
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault3    | I1029 00:12:51.562733       1 vault.go:103] Set Vault :8003 Counter 155
+vault1    | I1029 00:12:51.562731       1 vault.go:103] Set Vault :8001 Counter 155
+vault2    | I1029 00:12:51.562774       1 vault.go:103] Set Vault :8002 Counter 155
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:51.567791       1 vault.go:103] Set Vault :8001 Counter 156
+
+
+vault2    | I1029 00:12:51.567776       1 vault.go:103] Set Vault :8002 Counter 156
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:51.572734       1 vault.go:103] Set Vault :8002 Counter 159
+
+
+vault1    | I1029 00:12:51.572760       1 vault.go:103] Set Vault :8001 Counter 159
+vault3    | I1029 00:12:51.572712       1 vault.go:103] Set Vault :8003 Counter 159
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:51.576849       1 vault.go:103] Set Vault :8003 Counter 161
+vault1    | I1029 00:12:51.576818       1 vault.go:103] Set Vault :8001 Counter 161
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:51.580652       1 vault.go:103] Set Vault :8002 Counter 162
+
+
+vault3    | I1029 00:12:51.580634       1 vault.go:103] Set Vault :8003 Counter 162
+vault1    | I1029 00:12:51.580647       1 vault.go:103] Set Vault :8001 Counter 162
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:51.584422       1 vault.go:103] Set Vault :8001 Counter 165
+vault3    | I1029 00:12:51.584439       1 vault.go:103] Set Vault :8003 Counter 165
+
+vault2    | I1029 00:12:51.584418       1 vault.go:103] Set Vault :8002 Counter 165
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:51.588394       1 vault.go:103] Set Vault :8002 Counter 168
+vault1    | I1029 00:12:51.588436       1 vault.go:103] Set Vault :8001 Counter 168
+vault3    | I1029 00:12:51.588458       1 vault.go:103] Set Vault :8003 Counter 168
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault1    | I1029 00:12:51.592362       1 vault.go:103] Set Vault :8001 Counter 171
+vault2    | I1029 00:12:51.592422       1 vault.go:103] Set Vault :8002 Counter 171
+vault3    | I1029 00:12:51.592384       1 vault.go:103] Set Vault :8003 Counter 171
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:51.596199       1 vault.go:103] Set Vault :8001 Counter 174
+
+
+vault2    | I1029 00:12:51.596196       1 vault.go:103] Set Vault :8002 Counter 174
+vault3    | I1029 00:12:51.596227       1 vault.go:103] Set Vault :8003 Counter 174
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:51.600411       1 vault.go:103] Set Vault :8003 Counter 175
+
+
+vault2    | I1029 00:12:51.600411       1 vault.go:103] Set Vault :8002 Counter 175
+vault1    | I1029 00:12:51.600432       1 vault.go:103] Set Vault :8001 Counter 175
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:51.604232       1 vault.go:103] Set Vault :8002 Counter 178
+
+
+vault1    | I1029 00:12:51.604244       1 vault.go:103] Set Vault :8001 Counter 178
+vault3    | I1029 00:12:51.604282       1 vault.go:103] Set Vault :8003 Counter 178
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:51.608522       1 vault.go:103] Set Vault :8002 Counter 181
+vault1    | I1029 00:12:51.608597       1 vault.go:103] Set Vault :8001 Counter 181
+
+vault3    | I1029 00:12:51.608517       1 vault.go:103] Set Vault :8003 Counter 181
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:51.612482       1 vault.go:103] Set Vault :8003 Counter 184
+
+
+vault2    | I1029 00:12:51.612551       1 vault.go:103] Set Vault :8002 Counter 184
+vault1    | I1029 00:12:51.612534       1 vault.go:103] Set Vault :8001 Counter 184
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:51.616380       1 vault.go:103] Set Vault :8001 Counter 185
+
+
+vault3    | I1029 00:12:51.616356       1 vault.go:103] Set Vault :8003 Counter 185
+vault2    | I1029 00:12:51.616415       1 vault.go:103] Set Vault :8002 Counter 185
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:51.620082       1 vault.go:103] Set Vault :8001 Counter 187
+
+
+vault2    | I1029 00:12:51.620106       1 vault.go:103] Set Vault :8002 Counter 187
+vault3    | I1029 00:12:51.620138       1 vault.go:103] Set Vault :8003 Counter 187
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:51.624187       1 vault.go:103] Set Vault :8003 Counter 189
+
+vault2    | I1029 00:12:51.624189       1 vault.go:103] Set Vault :8002 Counter 189
+
+
+vault1    | I1029 00:12:51.624197       1 vault.go:103] Set Vault :8001 Counter 189
+
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault3    | I1029 00:12:51.627850       1 vault.go:103] Set Vault :8003 Counter 192
+
+
+vault1    | I1029 00:12:51.627862       1 vault.go:103] Set Vault :8001 Counter 192
+vault2    | I1029 00:12:51.627908       1 vault.go:103] Set Vault :8002 Counter 192
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:51.631823       1 vault.go:103] Set Vault :8002 Counter 193
+
+
+vault1    | I1029 00:12:51.631826       1 vault.go:103] Set Vault :8001 Counter 193
+vault3    | I1029 00:12:51.631813       1 vault.go:103] Set Vault :8003 Counter 193
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:51.635804       1 vault.go:103] Set Vault :8002 Counter 196
+vault1    | I1029 00:12:51.635763       1 vault.go:103] Set Vault :8001 Counter 196
+
+vault3    | I1029 00:12:51.635781       1 vault.go:103] Set Vault :8003 Counter 196
+
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:51.639610       1 vault.go:103] Set Vault :8002 Counter 198
+vault3    | I1029 00:12:51.639682       1 vault.go:103] Set Vault :8003 Counter 198
+vault1    | I1029 00:12:51.639647       1 vault.go:103] Set Vault :8001 Counter 198
+
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:51.643564       1 vault.go:103] Set Vault :8001 Counter 200
+vault2    | I1029 00:12:51.643609       1 vault.go:103] Set Vault :8002 Counter 200
+
+vault3    | I1029 00:12:51.643566       1 vault.go:103] Set Vault :8003 Counter 200
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+control   | I1029 00:12:51.647462       1 control.go:122] Counts data: map[200:3]
+workload  | HttpStatus=200 Expected=200 Actual=200
+vault1    | I1029 00:12:52.658633       1 vault.go:103] Set Vault :8001 Counter 202
+vault2    | I1029 00:12:52.658678       1 vault.go:103] Set Vault :8002 Counter 202
+vault3    | I1029 00:12:52.658623       1 vault.go:103] Set Vault :8003 Counter 202
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault2    | I1029 00:12:52.667204       1 vault.go:103] Set Vault :8002 Counter 205
+
+
+vault1    | I1029 00:12:52.667148       1 vault.go:103] Set Vault :8001 Counter 205
+vault3    | I1029 00:12:52.667115       1 vault.go:103] Set Vault :8003 Counter 205
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:52.674450       1 vault.go:103] Set Vault :8001 Counter 208
+
+
+vault3    | I1029 00:12:52.674408       1 vault.go:103] Set Vault :8003 Counter 208
+vault2    | I1029 00:12:52.674375       1 vault.go:103] Set Vault :8002 Counter 208
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+vault1    | I1029 00:12:52.680846       1 vault.go:103] Set Vault :8001 Counter 209
+
+
+vault2    | I1029 00:12:52.680836       1 vault.go:103] Set Vault :8002 Counter 209
+vault3    | I1029 00:12:52.680873       1 vault.go:103] Set Vault :8003 Counter 209
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+
+
+vault2    | I1029 00:12:52.686743       1 vault.go:103] Set Vault :8002 Counter 210
+vault3    | I1029 00:12:52.686748       1 vault.go:103] Set Vault :8003 Counter 210
+
+vault1    | I1029 00:12:52.686729       1 vault.go:103] Set Vault :8001 Counter 210
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+control   | I1029 00:12:52.691852       1 control.go:122] Counts data: map[210:3]
+workload  | HttpStatus=200 Expected=210 Actual=210
+vault1    | I1029 00:12:53.702318       1 vault.go:103] Set Vault :8001 Counter 213
+vault2    | I1029 00:12:53.702337       1 vault.go:103] Set Vault :8002 Counter 213
+vault3    | I1029 00:12:53.702293       1 vault.go:103] Set Vault :8003 Counter 213
+workload  | HttpStatus=200 Message=Sent updates to 3/3 vaults
+workload  | Waiting 5 seconds for any straggling writes ... done.
+control   | I1029 00:12:58.721631       1 control.go:122] Counts data: map[213:3]
+workload  | HttpStatus=200 Expected=213 Actual=213
+workload  | Test completed with storage in a consistent and correct state.
+workload  | ==== END TEST ====
+workload exited with code 0
+Gracefully Stopping... press Ctrl+C again to force
+ Container control  Stopping
+ Container workload  Stopping
+ Container vault2  Stopping
+ Container vault1  Stopping
+ Container vault3  Stopping
+ Container workload  Stopped
+ Container vault3  Stopped
+vault3 exited with code 2
+ Container vault2  Stopped
+vault2 exited with code 2
+ Container control  Stopped
+control exited with code 2
+ Container vault1  Stopped
+vault1 exited with code 2
